@@ -3,7 +3,7 @@
 > **Fonte única, versionada e canônica dos design tokens oficiais do ecossistema GSA.**
 
 [![Version](https://img.shields.io/badge/versão-1.0.0-blue)](#)
-[![License](https://img.shields.io/badge/licença-MIT-green)](#)
+[![License](https://img.shields.io/badge/licença-interna-gray)](#)
 
 ---
 
@@ -182,9 +182,9 @@ Exemplos:
 GsaTokens.{Categoria}.{CaminhoEmPascalCase}
 
 Exemplos:
-  GsaTokens.Colors.ColorBlue700
-  GsaTokens.Spacing.Spacing4
-  GsaTokens.Typography.FontSizeBase
+  GsaTokens.Colors.Blue700
+  GsaTokens.Spacing.Size4
+  GsaTokens.Typography.SizeBase
 ```
 
 ---
@@ -250,7 +250,7 @@ Exemplos:
 ```js
 import tokens from 'path/to/build/json/tokens.json';
 
-const blueBase = tokens.core.colors.color.blue[700]; // "#1D4ED8"
+const blueBase = tokens.core.colors.blue[700]; // "#1D4ED8"
 const textPrimary = tokens.themes['gsa-light'].text.primary; // "#0F172A"
 ```
 
@@ -259,7 +259,7 @@ const textPrimary = tokens.themes['gsa-light'].text.primary; // "#0F172A"
 ```js
 import flat from 'path/to/build/json/tokens.flat.json';
 
-const blue700 = flat['core.colors.color-blue-700']; // "#1D4ED8"
+const blue700 = flat['core.colors.blue-700']; // "#1D4ED8"
 ```
 
 ---
@@ -299,8 +299,8 @@ var atributo = tema.ToDataAttribute(); // "domain-auth"
 @use 'path/to/build/blazor/gsa-tokens' as gsa;
 
 .meu-botao {
-  background-color: $gsa-colors-color-blue-700;
-  padding: $gsa-spacing-spacing-4;
+  background-color: $gsa-colors-blue-700;
+  padding: $gsa-spacing-4;
 }
 ```
 
