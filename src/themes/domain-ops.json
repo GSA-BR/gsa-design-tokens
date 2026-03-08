@@ -4,17 +4,15 @@
   "$type": "light",
   "$extends": "gsa-light",
   "surface": {
-    "sidebar":        "#334155",
-    "sidebar-active": "#475569",
-    "header":         "#1E293B"
+    "sidebar-active": "#F1F5F9"
   },
   "action": {
-    "primary-bg":       "#334155",
-    "primary-bg-hover": "#1E293B"
+    "primary-bg":       "#475569",
+    "primary-bg-hover": "#334155"
   },
   "brand": {
-    "primary":   "#1E293B",
-    "secondary":  "#334155",
+    "primary":   "#334155",
+    "secondary":  "#475569",
     "accent":     "#06B6D4",
     "name":       "OPS"
   }

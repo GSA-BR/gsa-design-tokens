@@ -3,13 +3,11 @@
  * Gerado automaticamente. Não editar diretamente.
  */
 [data-theme="domain-ops"] {
-  --gsa-theme-surface-sidebar: #334155;
-  --gsa-theme-surface-sidebar-active: #475569;
-  --gsa-theme-surface-header: #1E293B;
-  --gsa-theme-action-primary-bg: #334155;
-  --gsa-theme-action-primary-bg-hover: #1E293B;
-  --gsa-theme-brand-primary: #1E293B;
-  --gsa-theme-brand-secondary: #334155;
+  --gsa-theme-surface-sidebar-active: #F1F5F9;
+  --gsa-theme-action-primary-bg: #475569;
+  --gsa-theme-action-primary-bg-hover: #334155;
+  --gsa-theme-brand-primary: #334155;
+  --gsa-theme-brand-secondary: #475569;
   --gsa-theme-brand-accent: #06B6D4;
   --gsa-theme-brand-name: OPS;
 }

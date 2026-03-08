@@ -1,18 +1,18 @@
 {
   "$description": "Tokens semânticos de cor de texto. Cada token define um propósito de uso, não uma cor crua.",
   "$extends": "gsa-light",
-  "primary":    "{core.gray.900}",
-  "secondary":  "{core.gray.600}",
+  "primary":    "{core.gray.800}",
+  "secondary":  "{core.gray.500}",
   "tertiary":   "{core.gray.400}",
   "disabled":   "{core.gray.300}",
   "inverse":    "{core.white}",
-  "link":       "{core.blue.700}",
-  "link-hover": "{core.blue.900}",
+  "link":       "{core.blue.600}",
+  "link-hover": "{core.blue.800}",
   "on-primary": "{core.white}",
   "on-accent":  "{core.gray.950}",
   "error":      "{core.red.700}",
   "warning":    "{core.amber.700}",
   "success":    "{core.green.700}",
-  "info":       "{core.blue.700}",
+  "info":       "{core.blue.600}",
   "code":       "{core.cyan.800}"
 }

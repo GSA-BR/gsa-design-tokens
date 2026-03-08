@@ -4,18 +4,16 @@
   "$type": "light",
   "$extends": "gsa-light",
   "surface": {
-    "sidebar":        "#451A03",
-    "sidebar-active": "#D97706",
-    "header":         "#451A03"
+    "sidebar-active": "#FEF3C7"
   },
   "action": {
-    "primary-bg":       "#B45309",
-    "primary-bg-hover": "#92400E",
+    "primary-bg":       "#D97706",
+    "primary-bg-hover": "#B45309",
     "primary-text":     "#FFFFFF"
   },
   "brand": {
-    "primary":   "#451A03",
-    "secondary":  "#B45309",
+    "primary":   "#B45309",
+    "secondary":  "#D97706",
     "accent":     "#FBBF24",
     "name":       "Factory"
   }
