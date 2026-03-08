@@ -10,31 +10,30 @@
 ## Sumário
 
 - [Objetivo](#objetivo)
+- [Quem Consome este Repositório](#quem-consome-este-repositório)
+- [O que é OBRIGATÓRIO](#o-que-é-obrigatório)
+- [O que é PROIBIDO](#o-que-é-proibido)
 - [Princípios](#princípios)
 - [Arquitetura](#arquitetura)
 - [Estrutura de Pastas](#estrutura-de-pastas)
 - [Paleta de Cores](#paleta-de-cores)
 - [Convenção de Nomenclatura](#convenção-de-nomenclatura)
-- [Como Consumir os Tokens](#como-consumir-os-tokens)
-  - [CSS Variables](#css-variables)
-  - [JSON](#json)
-  - [Blazor (C#)](#blazor-c)
 - [Como Fazer o Build](#como-fazer-o-build)
+- [Como Consumir em CSS](#como-consumir-em-css)
+- [Como Consumir em Blazor](#como-consumir-em-blazor)
+- [Exemplos Reais de Consumo](#exemplos-reais-de-consumo)
 - [Temas Disponíveis](#temas-disponíveis)
-- [Como Evoluir os Tokens](#como-evoluir-os-tokens)
 - [Tokens de Ambiente](#tokens-de-ambiente)
+- [Política de Versionamento](#política-de-versionamento)
+- [Política de Evolução de Tokens](#política-de-evolução-de-tokens)
+- [Fluxo para Propor Novos Tokens](#fluxo-para-propor-novos-tokens)
 - [Decisões de Arquitetura](#decisões-de-arquitetura)
 
 ---
 
 ## Objetivo
 
-Este repositório é a **fonte única da verdade** dos tokens visuais do ecossistema GSA. Ele define, versiona e distribui os tokens de design que serão consumidos por:
-
-- **`gsa-ui-blazor`** — biblioteca de componentes Blazor
-- **Templates oficiais** do ecossistema GSA
-- **Futuras bibliotecas web** (React, Angular, Web Components)
-- **Aplicações administrativas e operacionais** do ecossistema
+Este repositório é a **fonte única da verdade** dos tokens visuais do ecossistema GSA. Ele define, versiona e distribui os tokens de design que serão consumidos por todas as aplicações e bibliotecas do ecossistema.
 
 O objetivo não é criar um tema solto, e sim uma **base visual reutilizável e governável** que transmita:
 
@@ -42,6 +41,38 @@ O objetivo não é criar um tema solto, e sim uma **base visual reutilizável e 
 - Excelência técnica e integração
 - Visual limpo, moderno e consistente
 - Confiabilidade e sobriedade corporativa
+
+---
+
+## Quem Consome este Repositório
+
+| Consumidor | Como consome | Artefato utilizado |
+|---|---|---|
+| **`gsa-ui-blazor`** | Importa `GsaTokens.cs`, `GsaThemes.cs` e `_gsa-tokens.scss` | `build/blazor/` |
+| **Templates oficiais GSA** | Importa CSS via `tokens.all.css` | `build/css/` |
+| **Futuras bibliotecas web** (React, Angular, Web Components) | CSS Custom Properties ou JSON | `build/css/` ou `build/json/` |
+| **Aplicações administrativas** do ecossistema | CSS Custom Properties com tema de domínio | `build/css/theme.domain-*.css` |
+
+---
+
+## O que é OBRIGATÓRIO
+
+- Todo valor visual (cor, espaçamento, tipografia, sombra, etc.) **deve** ser definido como token neste repositório.
+- Consumidores **devem** usar os artefatos gerados em `build/` — nunca copiar valores manualmente.
+- Toda alteração de token **deve** passar por PR com revisão.
+- O build **deve** passar sem erros antes de qualquer merge.
+- Tokens semânticos **devem** referenciar valores core — nunca valores arbitrários.
+- Temas de domínio **devem** estender `gsa-light` e funcionar como sotaques visuais, não identidades independentes.
+- O versionamento **deve** seguir Semantic Versioning (semver).
+
+## O que é PROIBIDO
+
+- **Não** defina cores, espaçamentos ou tipografias diretamente em componentes, CSS ou código de aplicação.
+- **Não** edite arquivos em `build/` diretamente — eles são regenerados a cada build.
+- **Não** renomeie ou remova tokens sem incrementar a versão MAJOR.
+- **Não** introduza dependências externas no build (o script roda com Node.js puro).
+- **Não** crie temas de domínio que descaracterizem a identidade visual GSA.
+- **Não** use valores core diretamente em componentes — use tokens semânticos ou de tema.
 
 ---
 
@@ -189,9 +220,43 @@ Exemplos:
 
 ---
 
-## Como Consumir os Tokens
+## Como Fazer o Build
 
-### CSS Variables
+**Pré-requisito:** Node.js 18 ou superior.
+
+```bash
+# Instalar dependências (nenhuma dependência externa necessária)
+npm install
+
+# Validar estrutura de tokens (sem gerar artefatos)
+npm run validate
+
+# Gerar todos os artefatos
+npm run build
+
+# Gerar apenas CSS
+npm run build:css
+
+# Gerar apenas JSON
+npm run build:json
+
+# Gerar apenas artefatos Blazor
+npm run build:blazor
+```
+
+Os artefatos são gerados em `build/`. **Não edite arquivos em `build/` diretamente** — eles são regenerados a cada build.
+
+O build valida automaticamente:
+- Existência dos diretórios obrigatórios (`src/core/`, `src/semantic/`, `src/themes/`)
+- Existência dos arquivos obrigatórios de cada camada
+- Validade do JSON em todos os arquivos-fonte
+- Falha com mensagens claras caso alguma categoria crítica esteja ausente
+
+---
+
+## Como Consumir em CSS
+
+### Importar tokens
 
 **Opção 1 — Bundle completo (recomendado):**
 
@@ -207,17 +272,17 @@ Exemplos:
 <link rel="stylesheet" href="path/to/build/css/theme.gsa-light.css" />
 ```
 
-**Aplicar tema no HTML:**
+### Aplicar tema no HTML
 
 ```html
 <html data-theme="gsa-light">
   <!-- ou -->
 <html data-theme="gsa-dark">
-  <!-- ou -->
+  <!-- ou tema de domínio -->
 <html data-theme="domain-auth">
 ```
 
-**Usar as variáveis no CSS:**
+### Usar variáveis no CSS
 
 ```css
 .meu-componente {
@@ -230,18 +295,78 @@ Exemplos:
   transition: background-color var(--gsa-core-motion-duration-normal)
               var(--gsa-core-motion-easing-ease-in-out);
 }
+```
 
-.btn-primary {
-  background-color: var(--gsa-theme-action-primary-bg);
-  color: var(--gsa-theme-action-primary-text);
-}
+### Usar variáveis em SCSS
 
-.btn-primary:hover {
-  background-color: var(--gsa-theme-action-primary-bg-hover);
+```scss
+// Arquivo: meu-componente.scss
+.card {
+  background: var(--gsa-theme-surface-card);
+  border: 1px solid var(--gsa-theme-border-default);
+  border-radius: var(--gsa-core-radius-md);
+  padding: var(--gsa-core-spacing-4);
+  box-shadow: var(--gsa-core-shadow-sm);
+
+  &__title {
+    color: var(--gsa-theme-text-primary);
+    font-size: var(--gsa-core-typography-size-lg);
+    font-weight: var(--gsa-core-typography-weight-semibold);
+  }
+
+  &__body {
+    color: var(--gsa-theme-text-secondary);
+    font-size: var(--gsa-core-typography-size-base);
+  }
 }
 ```
 
 ---
+
+## Como Consumir em Blazor
+
+### 1. Adicionar os arquivos gerados ao projeto
+
+Copie os arquivos de `build/blazor/` para o projeto `gsa-ui-blazor`:
+- `GsaTokens.cs` — constantes de todos os tokens core
+- `GsaThemes.cs` — enum de temas + extensão `ToDataAttribute()`
+- `_gsa-tokens.scss` — variáveis SCSS para uso em estilos isolados
+
+### 2. Usar constantes de token em componentes
+
+```csharp
+// Referenciando valores de token no C#
+var primaryColor = GsaTokens.Colors.Blue700;   // "#1D4ED8"
+var spacing      = GsaTokens.Spacing.Size4;    // "1rem"
+var radius       = GsaTokens.Radius.Md;        // "0.375rem"
+```
+
+### 3. Aplicar tema dinamicamente
+
+```razor
+@inject IThemeService ThemeService
+
+<html data-theme="@ThemeService.Current.ToDataAttribute()">
+  ...
+</html>
+```
+
+```csharp
+// Trocar tema em runtime
+var tema = GsaTheme.DomainAuth;
+var atributo = tema.ToDataAttribute(); // "domain-auth"
+```
+
+### 4. Usar variáveis SCSS em componentes Blazor
+
+```scss
+@use 'path/to/build/blazor/gsa-tokens' as gsa;
+
+.meu-botao {
+  background-color: $gsa-colors-blue-700;
+  padding: $gsa-spacing-4;
+}
+```
 
 ### JSON
 
@@ -264,85 +389,123 @@ const blue700 = flat['core.colors.blue-700']; // "#1D4ED8"
 
 ---
 
-### Blazor (C#)
+## Exemplos Reais de Consumo
 
-**1. Adicionar os arquivos `GsaTokens.cs` e `GsaThemes.cs` ao projeto.**
+### Botão primário em CSS
 
-**2. Usar constantes de token em componentes Razor:**
+```css
+.btn-primary {
+  background-color: var(--gsa-theme-action-primary-bg);
+  color: var(--gsa-theme-action-primary-text);
+  border: none;
+  border-radius: var(--gsa-core-radius-md);
+  padding: var(--gsa-core-spacing-2) var(--gsa-core-spacing-4);
+  font-size: var(--gsa-core-typography-size-sm);
+  font-weight: var(--gsa-core-typography-weight-medium);
+  cursor: pointer;
+  transition: background-color var(--gsa-core-motion-duration-fast)
+              var(--gsa-core-motion-easing-ease-in-out);
+}
 
-```csharp
-// Em um serviço ou componente
-var primaryColor = GsaTokens.Colors.Blue700;   // "#1D4ED8"
-var spacing4     = GsaTokens.Spacing.Size4;    // "1rem"
-var radiusMd     = GsaTokens.Radius.Md;        // "0.375rem"
+.btn-primary:hover {
+  background-color: var(--gsa-theme-action-primary-bg-hover);
+}
+
+.btn-primary:active {
+  background-color: var(--gsa-theme-action-primary-bg-active);
+}
+
+.btn-primary:disabled {
+  background-color: var(--gsa-theme-action-primary-bg-disabled);
+  color: var(--gsa-theme-action-primary-text-disabled);
+  cursor: not-allowed;
+}
 ```
 
-**3. Aplicar tema dinamicamente:**
+### Alerta de status em CSS
 
-```razor
-@inject IThemeService ThemeService
+```css
+.alert {
+  padding: var(--gsa-core-spacing-3) var(--gsa-core-spacing-4);
+  border-radius: var(--gsa-core-radius-md);
+  font-size: var(--gsa-core-typography-size-sm);
+}
 
-<html data-theme="@ThemeService.Current.ToDataAttribute()">
-  ...
+.alert--success {
+  background-color: var(--gsa-theme-status-success-bg);
+  color: var(--gsa-theme-status-success-text);
+  border: 1px solid var(--gsa-theme-status-success-border);
+}
+
+.alert--error {
+  background-color: var(--gsa-theme-status-error-bg);
+  color: var(--gsa-theme-status-error-text);
+  border: 1px solid var(--gsa-theme-status-error-border);
+}
+```
+
+### Tema por domínio — mesma aplicação, visual diferente
+
+```html
+<!-- Aplicação do módulo Auth -->
+<html data-theme="domain-auth">
+  <body>
+    <aside class="sidebar"><!-- sidebar com identidade Auth --></aside>
+    <main><!-- conteúdo usa o mesmo design system --></main>
+  </body>
+</html>
+
+<!-- Aplicação do módulo SGQ -->
+<html data-theme="domain-sgq">
+  <body>
+    <aside class="sidebar"><!-- sidebar com identidade SGQ --></aside>
+    <main><!-- mesmo layout, apenas cores de destaque mudam --></main>
+  </body>
 </html>
 ```
 
-```csharp
-// Exemplo de uso do enum
-var tema = GsaTheme.DomainAuth;
-var atributo = tema.ToDataAttribute(); // "domain-auth"
+```css
+/* O CSS é o mesmo — o tema controla as cores automaticamente */
+.sidebar {
+  background-color: var(--gsa-theme-surface-sidebar);
+  color: var(--gsa-theme-text-inverse);
+}
+
+.sidebar__item--active {
+  background-color: var(--gsa-theme-surface-sidebar-active);
+}
 ```
 
-**4. Para projetos com SCSS, importar as variáveis:**
+### Componente Blazor com tokens
 
-```scss
-@use 'path/to/build/blazor/gsa-tokens' as gsa;
+```razor
+@* Componente GsaButton.razor *@
+<button class="btn-primary" data-theme="@Theme.ToDataAttribute()">
+  @ChildContent
+</button>
 
-.meu-botao {
-  background-color: $gsa-colors-blue-700;
-  padding: $gsa-spacing-4;
+@code {
+    [Parameter] public GsaTheme Theme { get; set; } = GsaTheme.GsaLight;
+    [Parameter] public RenderFragment? ChildContent { get; set; }
 }
 ```
 
 ---
 
-## Como Fazer o Build
-
-**Pré-requisito:** Node.js 18 ou superior.
-
-```bash
-# Instalar dependências (nenhuma dependência externa necessária)
-npm install
-
-# Gerar todos os artefatos
-npm run build
-
-# Gerar apenas CSS
-npm run build:css
-
-# Gerar apenas JSON
-npm run build:json
-
-# Gerar apenas artefatos Blazor
-npm run build:blazor
-```
-
-Os artefatos são gerados em `build/`. **Não edite arquivos em `build/` diretamente** — eles são regenerados a cada build.
-
----
-
 ## Temas Disponíveis
 
-| Tema              | Descrição                                    | Cor primária      |
-|-------------------|----------------------------------------------|-------------------|
-| `gsa-light`       | Tema claro padrão do ecossistema             | Azul corporativo  |
-| `gsa-dark`        | Tema escuro para ambientes de baixa luz      | Azul sobre grafite|
-| `domain-auth`     | Módulo de autenticação e autorização         | Azul profundo     |
-| `domain-iam`      | Identity and Access Management               | Ciano corporativo |
-| `domain-mdm`      | Master Data Management                       | Azul médio        |
-| `domain-sgq`      | Sistema de Gestão da Qualidade               | Verde técnico     |
-| `domain-ops`      | Operações e monitoramento                    | Grafite           |
-| `domain-factory`  | Automação e manufatura                       | Âmbar industrial  |
+| Tema              | Descrição                                    | Cor primária      | Papel no ecossistema |
+|-------------------|----------------------------------------------|-------------------|----------------------|
+| `gsa-light`       | Tema claro padrão do ecossistema             | Azul corporativo  | Base obrigatória     |
+| `gsa-dark`        | Tema escuro para ambientes de baixa luz      | Azul sobre grafite| Alternativa de luminosidade |
+| `domain-auth`     | Módulo de autenticação e autorização         | Azul profundo     | Sotaque de domínio   |
+| `domain-iam`      | Identity and Access Management               | Ciano corporativo | Sotaque de domínio   |
+| `domain-mdm`      | Master Data Management                       | Azul médio        | Sotaque de domínio   |
+| `domain-sgq`      | Sistema de Gestão da Qualidade               | Verde técnico     | Sotaque de domínio   |
+| `domain-ops`      | Operações e monitoramento                    | Grafite           | Sotaque de domínio   |
+| `domain-factory`  | Automação e manufatura                       | Âmbar industrial  | Sotaque de domínio   |
+
+> **Importante:** Os temas de domínio funcionam como **sotaques visuais** — alteram sidebar, header e ação primária, mas preservam a identidade base do GSA (textos, bordas, superfícies). Eles **não** são identidades visuais independentes.
 
 ---
 
@@ -371,7 +534,37 @@ Os tokens de ambiente permitem que a interface comunique claramente em qual cont
 
 ---
 
-## Como Evoluir os Tokens
+## Política de Versionamento
+
+Este repositório segue **Semantic Versioning (semver)** rigorosamente:
+
+| Tipo de mudança | Versão | Exemplo | Impacto |
+|---|---|---|---|
+| **MAJOR** (`x.0.0`) | Mudança incompatível | Renomear `text.primary` → `text.main` | Quebra consumidores |
+| **MINOR** (`1.x.0`) | Adição compatível | Novo token `text.caption` | Nenhuma quebra |
+| **PATCH** (`1.0.x`) | Correção de valor | Ajustar `#1D4ED8` → `#1E4FD9` | Nenhuma quebra |
+
+### Regras de compatibilidade
+
+- **Nunca remova** um token existente sem incrementar MAJOR.
+- **Nunca renomeie** um token sem incrementar MAJOR.
+- **Adição** de tokens novos é sempre MINOR.
+- **Alteração de valor** sem mudança de nome ou remoção é PATCH.
+- Adição de novo tema de domínio é MINOR.
+
+### Como consumidores devem tratar upgrades
+
+| Tipo | `gsa-ui-blazor` deve | Ação necessária |
+|---|---|---|
+| PATCH | Atualizar livremente | Nenhuma |
+| MINOR | Atualizar livremente | Nenhuma (tokens novos são opcionais) |
+| MAJOR | Atualizar com cautela | Revisar changelog, adaptar referências removidas/renomeadas |
+
+> **Recomendação:** `gsa-ui-blazor` deve fixar a dependência em `~1.x` (aceitar MINOR/PATCH, travar MAJOR).
+
+---
+
+## Política de Evolução de Tokens
 
 ### Adicionar um novo token core
 
@@ -419,13 +612,33 @@ Os tokens de ambiente permitem que a interface comunique claramente em qual cont
 }
 ```
 
-### Versionamento
+### Categorias futuras planejadas
 
-Este repositório segue **Semantic Versioning (semver)**:
+As seguintes categorias semânticas poderão ser adicionadas em versões futuras (MINOR), conforme demanda dos consumidores:
 
-- **PATCH** (`1.0.x`) — correções de valores sem quebra de compatibilidade
-- **MINOR** (`1.x.0`) — adição de novos tokens, sem remoção
-- **MAJOR** (`x.0.0`) — renomeação, remoção ou mudança de estrutura
+| Categoria | Propósito | Status |
+|---|---|---|
+| `focus` | Tokens de foco e acessibilidade | Parcialmente coberto em `border.json` |
+| `interactive` | Estados de elementos interativos genéricos | Parcialmente coberto em `action.json` |
+| `overlay` | Tokens de sobreposição e modais | Parcialmente coberto em `surface.json` |
+
+> **Nota:** Novas categorias só devem ser criadas quando houver demanda real de ao menos um consumidor. Não inflar o MVP com estruturas vazias.
+
+---
+
+## Fluxo para Propor Novos Tokens
+
+1. **Abra uma issue** descrevendo o token necessário, sua categoria e justificativa de uso
+2. **Discuta** com a equipe de arquitetura — validar se o token é semântico e reutilizável
+3. **Implemente** a alteração em um branch separado (`feat/token-nome`)
+4. **Execute** `npm run build` e verifique os artefatos gerados
+5. **Abra um PR** com:
+   - Descrição clara do token adicionado
+   - Categoria (core/semantic/theme)
+   - Consumidores esperados
+   - Tipo de versionamento (MINOR para adição, PATCH para ajuste)
+6. **Revisão** por pelo menos um membro da equipe de arquitetura
+7. **Merge** após aprovação — versão é atualizada conforme semver
 
 ---
 
