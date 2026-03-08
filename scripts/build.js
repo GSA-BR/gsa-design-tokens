@@ -108,8 +108,7 @@ function resolveRefs(obj, refMap) {
   for (const [key, value] of Object.entries(obj)) {
     if (typeof value === 'string') {
       resolved[key] = value.replace(/\{([^}]+)\}/g, (match, ref) => {
-        const dotRef = ref.replace(/-/g, '-');
-        if (refMap[dotRef] !== undefined) return refMap[dotRef];
+        if (refMap[ref] !== undefined) return refMap[ref];
         console.warn(`  ⚠ Referência não resolvida: ${match}`);
         return match;
       });
@@ -307,7 +306,7 @@ function buildBlazor(tokens) {
     csLines.push('    {');
     for (const [key, value] of Object.entries(flat)) {
       const constName = toCsharpName(key);
-      const escaped   = value.replace(/"/g, '\\"');
+      const escaped   = value.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
       csLines.push(`        public const string ${constName} = "${escaped}";`);
     }
     csLines.push('    }');
