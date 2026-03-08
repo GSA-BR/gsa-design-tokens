@@ -21,6 +21,7 @@
 - [Como Fazer o Build](#como-fazer-o-build)
 - [Como Consumir em CSS](#como-consumir-em-css)
 - [Como Consumir em Blazor](#como-consumir-em-blazor)
+- [Como Consumir via JSON](#como-consumir-via-json)
 - [Exemplos Reais de Consumo](#exemplos-reais-de-consumo)
 - [Temas Disponíveis](#temas-disponíveis)
 - [Tokens de Ambiente](#tokens-de-ambiente)
@@ -368,7 +369,9 @@ var atributo = tema.ToDataAttribute(); // "domain-auth"
 }
 ```
 
-### JSON
+---
+
+## Como Consumir via JSON
 
 **Consumir JSON consolidado (estrutura aninhada):**
 
