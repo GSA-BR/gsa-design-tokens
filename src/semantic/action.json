@@ -1,0 +1,44 @@
+{
+  "$description": "Tokens semânticos de ação. Define as cores dos elementos interativos da interface: botões, links, controles.",
+  "$extends": "gsa-light",
+  "primary": {
+    "bg":            "{core.blue.700}",
+    "bg-hover":      "{core.blue.800}",
+    "bg-active":     "{core.blue.900}",
+    "bg-disabled":   "{core.gray.200}",
+    "text":          "{core.white}",
+    "text-disabled": "{core.gray.400}",
+    "border":        "{core.blue.700}"
+  },
+  "secondary": {
+    "bg":            "{core.white}",
+    "bg-hover":      "{core.gray.100}",
+    "bg-active":     "{core.gray.200}",
+    "bg-disabled":   "{core.gray.100}",
+    "text":          "{core.gray.800}",
+    "text-disabled": "{core.gray.400}",
+    "border":        "{core.gray.300}"
+  },
+  "ghost": {
+    "bg":        "transparent",
+    "bg-hover":  "{core.gray.100}",
+    "bg-active": "{core.gray.200}",
+    "text":      "{core.gray.700}",
+    "text-hover":"{core.gray.900}",
+    "border":    "transparent"
+  },
+  "destructive": {
+    "bg":        "{core.red.600}",
+    "bg-hover":  "{core.red.700}",
+    "bg-active": "{core.red.800}",
+    "text":      "{core.white}",
+    "border":    "{core.red.600}"
+  },
+  "accent": {
+    "bg":        "{core.cyan.600}",
+    "bg-hover":  "{core.cyan.700}",
+    "bg-active": "{core.cyan.800}",
+    "text":      "{core.white}",
+    "border":    "{core.cyan.600}"
+  }
+}

@@ -1,0 +1,14 @@
+/**
+ * GSA Design Tokens — Bundle completo
+ * Gerado automaticamente. Não editar diretamente.
+ */
+@import url("./tokens.core.css");
+@import url("./tokens.semantic.css");
+@import url("./theme.domain-auth.css");
+@import url("./theme.domain-factory.css");
+@import url("./theme.domain-iam.css");
+@import url("./theme.domain-mdm.css");
+@import url("./theme.domain-ops.css");
+@import url("./theme.domain-sgq.css");
+@import url("./theme.gsa-dark.css");
+@import url("./theme.gsa-light.css");

@@ -1,0 +1,21 @@
+{
+  "$description": "Tema do domínio IAM — módulo de Identity and Access Management. Visual focado em identidade e controle de acesso.",
+  "$name": "domain-iam",
+  "$type": "light",
+  "$extends": "gsa-light",
+  "surface": {
+    "sidebar":        "#164E63",
+    "sidebar-active": "#0891B2",
+    "header":         "#164E63"
+  },
+  "action": {
+    "primary-bg":       "#0891B2",
+    "primary-bg-hover": "#0E7490"
+  },
+  "brand": {
+    "primary":   "#164E63",
+    "secondary":  "#0891B2",
+    "accent":     "#22D3EE",
+    "name":       "IAM"
+  }
+}

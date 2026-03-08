@@ -1,0 +1,21 @@
+{
+  "$description": "Tema do domínio SGQ — Sistema de Gestão da Qualidade. Visual que transmite precisão e conformidade.",
+  "$name": "domain-sgq",
+  "$type": "light",
+  "$extends": "gsa-light",
+  "surface": {
+    "sidebar":        "#14532D",
+    "sidebar-active": "#16A34A",
+    "header":         "#14532D"
+  },
+  "action": {
+    "primary-bg":       "#16A34A",
+    "primary-bg-hover": "#15803D"
+  },
+  "brand": {
+    "primary":   "#14532D",
+    "secondary":  "#16A34A",
+    "accent":     "#4ADE80",
+    "name":       "SGQ"
+  }
+}

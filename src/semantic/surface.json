@@ -1,0 +1,21 @@
+{
+  "$description": "Tokens semânticos de superfície (backgrounds). Define camadas visuais da interface.",
+  "$extends": "gsa-light",
+  "base":           "{core.gray.50}",
+  "elevated":       "{core.white}",
+  "overlay":        "rgba(15, 23, 42, 0.6)",
+  "card":           "{core.white}",
+  "sidebar":        "{core.gray.900}",
+  "sidebar-item":   "transparent",
+  "sidebar-active": "{core.blue.700}",
+  "header":         "{core.gray.900}",
+  "footer":         "{core.gray.800}",
+  "modal":          "{core.white}",
+  "tooltip":        "{core.gray.800}",
+  "code":           "{core.gray.100}",
+  "input":          "{core.white}",
+  "input-disabled": "{core.gray.100}",
+  "table-row":      "{core.white}",
+  "table-row-alt":  "{core.gray.50}",
+  "table-header":   "{core.gray.100}"
+}

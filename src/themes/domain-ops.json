@@ -1,0 +1,21 @@
+{
+  "$description": "Tema do domínio OPS — Operações. Visual robusto para monitoramento e operações industriais.",
+  "$name": "domain-ops",
+  "$type": "light",
+  "$extends": "gsa-light",
+  "surface": {
+    "sidebar":        "#334155",
+    "sidebar-active": "#475569",
+    "header":         "#1E293B"
+  },
+  "action": {
+    "primary-bg":       "#334155",
+    "primary-bg-hover": "#1E293B"
+  },
+  "brand": {
+    "primary":   "#1E293B",
+    "secondary":  "#334155",
+    "accent":     "#06B6D4",
+    "name":       "OPS"
+  }
+}

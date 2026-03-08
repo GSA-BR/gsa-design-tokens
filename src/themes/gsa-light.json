@@ -1,0 +1,106 @@
+{
+  "$description": "Tema padrão do ecossistema GSA — interface clara, enterprise, sóbria e moderna.",
+  "$name": "gsa-light",
+  "$type": "light",
+  "text": {
+    "primary":    "#0F172A",
+    "secondary":  "#475569",
+    "tertiary":   "#94A3B8",
+    "disabled":   "#CBD5E1",
+    "inverse":    "#FFFFFF",
+    "link":       "#1D4ED8",
+    "link-hover": "#1E3A8A",
+    "on-primary": "#FFFFFF",
+    "on-accent":  "#0F172A",
+    "error":      "#BE123C",
+    "warning":    "#B45309",
+    "success":    "#15803D",
+    "info":       "#1D4ED8",
+    "code":       "#155E75"
+  },
+  "surface": {
+    "base":           "#F8FAFC",
+    "elevated":       "#FFFFFF",
+    "overlay":        "rgba(15, 23, 42, 0.6)",
+    "card":           "#FFFFFF",
+    "sidebar":        "#0F172A",
+    "sidebar-item":   "transparent",
+    "sidebar-active": "#1D4ED8",
+    "header":         "#0F172A",
+    "footer":         "#1E293B",
+    "modal":          "#FFFFFF",
+    "tooltip":        "#1E293B",
+    "code":           "#F1F5F9",
+    "input":          "#FFFFFF",
+    "input-disabled": "#F1F5F9",
+    "table-row":      "#FFFFFF",
+    "table-row-alt":  "#F8FAFC",
+    "table-header":   "#F1F5F9"
+  },
+  "border": {
+    "default":    "#E2E8F0",
+    "strong":     "#94A3B8",
+    "subtle":     "#F1F5F9",
+    "focus":      "#2563EB",
+    "focus-ring": "rgba(37, 99, 235, 0.25)",
+    "error":      "#F43F5E",
+    "success":    "#22C55E",
+    "warning":    "#F59E0B",
+    "info":       "#60A5FA",
+    "inverse":    "#334155"
+  },
+  "action": {
+    "primary-bg":              "#1D4ED8",
+    "primary-bg-hover":        "#1E40AF",
+    "primary-bg-active":       "#1E3A8A",
+    "primary-bg-disabled":     "#E2E8F0",
+    "primary-text":            "#FFFFFF",
+    "primary-text-disabled":   "#94A3B8",
+    "secondary-bg":            "#FFFFFF",
+    "secondary-bg-hover":      "#F1F5F9",
+    "secondary-bg-active":     "#E2E8F0",
+    "secondary-text":          "#1E293B",
+    "secondary-border":        "#CBD5E1",
+    "ghost-bg":                "transparent",
+    "ghost-bg-hover":          "#F1F5F9",
+    "ghost-text":              "#334155",
+    "destructive-bg":          "#E11D48",
+    "destructive-bg-hover":    "#BE123C",
+    "destructive-text":        "#FFFFFF",
+    "accent-bg":               "#0891B2",
+    "accent-bg-hover":         "#0E7490",
+    "accent-text":             "#FFFFFF"
+  },
+  "status": {
+    "success": {
+      "bg":     "#F0FDF4",
+      "text":   "#166534",
+      "border": "#4ADE80",
+      "icon":   "#16A34A"
+    },
+    "warning": {
+      "bg":     "#FFFBEB",
+      "text":   "#92400E",
+      "border": "#FBBF24",
+      "icon":   "#D97706"
+    },
+    "error": {
+      "bg":     "#FFF1F2",
+      "text":   "#9F1239",
+      "border": "#FB7185",
+      "icon":   "#E11D48"
+    },
+    "info": {
+      "bg":     "#EFF6FF",
+      "text":   "#1E40AF",
+      "border": "#93C5FD",
+      "icon":   "#2563EB"
+    },
+    "neutral": {
+      "bg":     "#F1F5F9",
+      "text":   "#334155",
+      "border": "#CBD5E1",
+      "icon":   "#64748B"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "$description": "Tema do domínio Factory — módulo de automação e manufatura. Visual industrial e técnico.",
+  "$name": "domain-factory",
+  "$type": "light",
+  "$extends": "gsa-light",
+  "surface": {
+    "sidebar":        "#451A03",
+    "sidebar-active": "#D97706",
+    "header":         "#451A03"
+  },
+  "action": {
+    "primary-bg":       "#D97706",
+    "primary-bg-hover": "#B45309"
+  },
+  "brand": {
+    "primary":   "#451A03",
+    "secondary":  "#D97706",
+    "accent":     "#FBBF24",
+    "name":       "Factory"
+  }
+}
