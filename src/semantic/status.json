@@ -1,0 +1,39 @@
+{
+  "$description": "Tokens semânticos de status. Definem as cores para feedback visual de estados: sucesso, atenção, erro, informação.",
+  "$extends": "gsa-light",
+  "success": {
+    "bg":     "{core.green.50}",
+    "bg-bold":"{core.green.600}",
+    "text":   "{core.green.800}",
+    "border": "{core.green.400}",
+    "icon":   "{core.green.600}"
+  },
+  "warning": {
+    "bg":     "{core.amber.50}",
+    "bg-bold":"{core.amber.500}",
+    "text":   "{core.amber.800}",
+    "border": "{core.amber.400}",
+    "icon":   "{core.amber.600}"
+  },
+  "error": {
+    "bg":     "{core.red.50}",
+    "bg-bold":"{core.red.600}",
+    "text":   "{core.red.800}",
+    "border": "{core.red.400}",
+    "icon":   "{core.red.600}"
+  },
+  "info": {
+    "bg":     "{core.blue.50}",
+    "bg-bold":"{core.blue.600}",
+    "text":   "{core.blue.800}",
+    "border": "{core.blue.300}",
+    "icon":   "{core.blue.600}"
+  },
+  "neutral": {
+    "bg":     "{core.gray.100}",
+    "bg-bold":"{core.gray.500}",
+    "text":   "{core.gray.700}",
+    "border": "{core.gray.300}",
+    "icon":   "{core.gray.500}"
+  }
+}

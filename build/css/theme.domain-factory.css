@@ -1,0 +1,15 @@
+/**
+ * GSA Design Tokens — Theme: domain-factory
+ * Gerado automaticamente. Não editar diretamente.
+ */
+[data-theme="domain-factory"] {
+  --gsa-theme-surface-sidebar: #451A03;
+  --gsa-theme-surface-sidebar-active: #D97706;
+  --gsa-theme-surface-header: #451A03;
+  --gsa-theme-action-primary-bg: #D97706;
+  --gsa-theme-action-primary-bg-hover: #B45309;
+  --gsa-theme-brand-primary: #451A03;
+  --gsa-theme-brand-secondary: #D97706;
+  --gsa-theme-brand-accent: #FBBF24;
+  --gsa-theme-brand-name: Factory;
+}

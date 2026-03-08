@@ -1,0 +1,217 @@
+// GSA Design Tokens — Variáveis SCSS
+// Gerado automaticamente. Não editar diretamente.
+// Importar este arquivo antes de usar variáveis de design.
+
+// ── core / breakpoints ──
+$gsa-breakpoints-xs: 320px;
+$gsa-breakpoints-sm: 480px;
+$gsa-breakpoints-md: 768px;
+$gsa-breakpoints-lg: 1024px;
+$gsa-breakpoints-xl: 1280px;
+$gsa-breakpoints-2xl: 1440px;
+$gsa-breakpoints-3xl: 1920px;
+
+// ── core / colors ──
+$gsa-colors-blue-50: #EFF6FF;
+$gsa-colors-blue-100: #DBEAFE;
+$gsa-colors-blue-200: #BFDBFE;
+$gsa-colors-blue-300: #93C5FD;
+$gsa-colors-blue-400: #60A5FA;
+$gsa-colors-blue-500: #3B82F6;
+$gsa-colors-blue-600: #2563EB;
+$gsa-colors-blue-700: #1D4ED8;
+$gsa-colors-blue-800: #1E40AF;
+$gsa-colors-blue-900: #1E3A8A;
+$gsa-colors-blue-950: #172554;
+$gsa-colors-cyan-50: #ECFEFF;
+$gsa-colors-cyan-100: #CFFAFE;
+$gsa-colors-cyan-200: #A5F3FC;
+$gsa-colors-cyan-300: #67E8F9;
+$gsa-colors-cyan-400: #22D3EE;
+$gsa-colors-cyan-500: #06B6D4;
+$gsa-colors-cyan-600: #0891B2;
+$gsa-colors-cyan-700: #0E7490;
+$gsa-colors-cyan-800: #155E75;
+$gsa-colors-cyan-900: #164E63;
+$gsa-colors-cyan-950: #083344;
+$gsa-colors-gray-50: #F8FAFC;
+$gsa-colors-gray-100: #F1F5F9;
+$gsa-colors-gray-200: #E2E8F0;
+$gsa-colors-gray-300: #CBD5E1;
+$gsa-colors-gray-400: #94A3B8;
+$gsa-colors-gray-500: #64748B;
+$gsa-colors-gray-600: #475569;
+$gsa-colors-gray-700: #334155;
+$gsa-colors-gray-800: #1E293B;
+$gsa-colors-gray-900: #0F172A;
+$gsa-colors-gray-950: #020617;
+$gsa-colors-green-50: #F0FDF4;
+$gsa-colors-green-100: #DCFCE7;
+$gsa-colors-green-200: #BBF7D0;
+$gsa-colors-green-300: #86EFAC;
+$gsa-colors-green-400: #4ADE80;
+$gsa-colors-green-500: #22C55E;
+$gsa-colors-green-600: #16A34A;
+$gsa-colors-green-700: #15803D;
+$gsa-colors-green-800: #166534;
+$gsa-colors-green-900: #14532D;
+$gsa-colors-green-950: #052E16;
+$gsa-colors-amber-50: #FFFBEB;
+$gsa-colors-amber-100: #FEF3C7;
+$gsa-colors-amber-200: #FDE68A;
+$gsa-colors-amber-300: #FCD34D;
+$gsa-colors-amber-400: #FBBF24;
+$gsa-colors-amber-500: #F59E0B;
+$gsa-colors-amber-600: #D97706;
+$gsa-colors-amber-700: #B45309;
+$gsa-colors-amber-800: #92400E;
+$gsa-colors-amber-900: #78350F;
+$gsa-colors-amber-950: #451A03;
+$gsa-colors-red-50: #FFF1F2;
+$gsa-colors-red-100: #FFE4E6;
+$gsa-colors-red-200: #FECDD3;
+$gsa-colors-red-300: #FDA4AF;
+$gsa-colors-red-400: #FB7185;
+$gsa-colors-red-500: #F43F5E;
+$gsa-colors-red-600: #E11D48;
+$gsa-colors-red-700: #BE123C;
+$gsa-colors-red-800: #9F1239;
+$gsa-colors-red-900: #881337;
+$gsa-colors-red-950: #4C0519;
+$gsa-colors-white: #FFFFFF;
+$gsa-colors-black: #000000;
+$gsa-colors-transparent: transparent;
+
+// ── core / motion ──
+$gsa-motion-duration-instant: 0ms;
+$gsa-motion-duration-fast: 100ms;
+$gsa-motion-duration-normal: 200ms;
+$gsa-motion-duration-slow: 300ms;
+$gsa-motion-duration-slower: 500ms;
+$gsa-motion-duration-slowest: 700ms;
+$gsa-motion-easing-linear: linear;
+$gsa-motion-easing-ease-in: cubic-bezier(0.4, 0, 1, 1);
+$gsa-motion-easing-ease-out: cubic-bezier(0, 0, 0.2, 1);
+$gsa-motion-easing-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+$gsa-motion-easing-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+// ── core / radius ──
+$gsa-radius-none: 0rem;
+$gsa-radius-xs: 0.125rem;
+$gsa-radius-sm: 0.25rem;
+$gsa-radius-md: 0.375rem;
+$gsa-radius-lg: 0.5rem;
+$gsa-radius-xl: 0.75rem;
+$gsa-radius-2xl: 1rem;
+$gsa-radius-3xl: 1.5rem;
+$gsa-radius-full: 9999px;
+
+// ── core / shadow ──
+$gsa-shadow-none: none;
+$gsa-shadow-xs: 0 1px 2px 0 rgba(15, 23, 42, 0.06);
+$gsa-shadow-sm: 0 1px 3px 0 rgba(15, 23, 42, 0.10), 0 1px 2px -1px rgba(15, 23, 42, 0.10);
+$gsa-shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.10), 0 2px 4px -2px rgba(15, 23, 42, 0.10);
+$gsa-shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.10), 0 4px 6px -4px rgba(15, 23, 42, 0.10);
+$gsa-shadow-xl: 0 20px 25px -5px rgba(15, 23, 42, 0.10), 0 8px 10px -6px rgba(15, 23, 42, 0.10);
+$gsa-shadow-2xl: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+$gsa-shadow-inner: inset 0 2px 4px 0 rgba(15, 23, 42, 0.06);
+
+// ── core / sizing ──
+$gsa-sizing-icon-xs: 0.75rem;
+$gsa-sizing-icon-sm: 1rem;
+$gsa-sizing-icon-md: 1.25rem;
+$gsa-sizing-icon-lg: 1.5rem;
+$gsa-sizing-icon-xl: 2rem;
+$gsa-sizing-icon-2xl: 2.5rem;
+$gsa-sizing-icon-3xl: 3rem;
+$gsa-sizing-component-height-xs: 1.5rem;
+$gsa-sizing-component-height-sm: 2rem;
+$gsa-sizing-component-height-md: 2.5rem;
+$gsa-sizing-component-height-lg: 3rem;
+$gsa-sizing-component-height-xl: 3.5rem;
+$gsa-sizing-component-height-2xl: 4rem;
+$gsa-sizing-container-xs: 320px;
+$gsa-sizing-container-sm: 640px;
+$gsa-sizing-container-md: 768px;
+$gsa-sizing-container-lg: 1024px;
+$gsa-sizing-container-xl: 1280px;
+$gsa-sizing-container-2xl: 1440px;
+$gsa-sizing-sidebar-collapsed: 3.5rem;
+$gsa-sizing-sidebar-expanded: 15rem;
+$gsa-sizing-header-height: 3.5rem;
+$gsa-sizing-z-index-below: -1;
+$gsa-sizing-z-index-base: 0;
+$gsa-sizing-z-index-raised: 10;
+$gsa-sizing-z-index-dropdown: 100;
+$gsa-sizing-z-index-sticky: 200;
+$gsa-sizing-z-index-overlay: 300;
+$gsa-sizing-z-index-modal: 400;
+$gsa-sizing-z-index-toast: 500;
+$gsa-sizing-z-index-tooltip: 600;
+
+// ── core / spacing ──
+$gsa-spacing-0: 0rem;
+$gsa-spacing-1: 0.25rem;
+$gsa-spacing-2: 0.5rem;
+$gsa-spacing-3: 0.75rem;
+$gsa-spacing-4: 1rem;
+$gsa-spacing-5: 1.25rem;
+$gsa-spacing-6: 1.5rem;
+$gsa-spacing-7: 1.75rem;
+$gsa-spacing-8: 2rem;
+$gsa-spacing-9: 2.25rem;
+$gsa-spacing-10: 2.5rem;
+$gsa-spacing-12: 3rem;
+$gsa-spacing-14: 3.5rem;
+$gsa-spacing-16: 4rem;
+$gsa-spacing-20: 5rem;
+$gsa-spacing-24: 6rem;
+$gsa-spacing-28: 7rem;
+$gsa-spacing-32: 8rem;
+$gsa-spacing-36: 9rem;
+$gsa-spacing-40: 10rem;
+$gsa-spacing-48: 12rem;
+$gsa-spacing-56: 14rem;
+$gsa-spacing-64: 16rem;
+$gsa-spacing-72: 18rem;
+$gsa-spacing-80: 20rem;
+$gsa-spacing-96: 24rem;
+$gsa-spacing-px: 0.0625rem;
+$gsa-spacing-0-5: 0.125rem;
+$gsa-spacing-1-5: 0.375rem;
+$gsa-spacing-2-5: 0.625rem;
+$gsa-spacing-3-5: 0.875rem;
+
+// ── core / typography ──
+$gsa-typography-family-sans: Inter, 'Segoe UI', system-ui, -apple-system, sans-serif;
+$gsa-typography-family-mono: 'JetBrains Mono', 'Cascadia Code', 'Fira Code', 'Courier New', monospace;
+$gsa-typography-family-serif: Georgia, 'Times New Roman', serif;
+$gsa-typography-size-xs: 0.75rem;
+$gsa-typography-size-sm: 0.875rem;
+$gsa-typography-size-base: 1rem;
+$gsa-typography-size-md: 1.125rem;
+$gsa-typography-size-lg: 1.25rem;
+$gsa-typography-size-xl: 1.5rem;
+$gsa-typography-size-2xl: 1.875rem;
+$gsa-typography-size-3xl: 2.25rem;
+$gsa-typography-size-4xl: 3rem;
+$gsa-typography-size-5xl: 3.75rem;
+$gsa-typography-weight-light: 300;
+$gsa-typography-weight-regular: 400;
+$gsa-typography-weight-medium: 500;
+$gsa-typography-weight-semibold: 600;
+$gsa-typography-weight-bold: 700;
+$gsa-typography-weight-extrabold: 800;
+$gsa-typography-line-height-none: 1;
+$gsa-typography-line-height-tight: 1.25;
+$gsa-typography-line-height-snug: 1.375;
+$gsa-typography-line-height-normal: 1.5;
+$gsa-typography-line-height-relaxed: 1.625;
+$gsa-typography-line-height-loose: 2;
+$gsa-typography-letter-spacing-tighter: -0.05em;
+$gsa-typography-letter-spacing-tight: -0.025em;
+$gsa-typography-letter-spacing-normal: 0em;
+$gsa-typography-letter-spacing-wide: 0.025em;
+$gsa-typography-letter-spacing-wider: 0.05em;
+$gsa-typography-letter-spacing-widest: 0.1em;
+

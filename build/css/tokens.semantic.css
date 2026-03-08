@@ -1,0 +1,137 @@
+/**
+ * GSA Design Tokens — Semantic
+ * Gerado automaticamente. Não editar diretamente.
+ */
+:root {
+
+  /* semantic / action */
+  --gsa-action-primary-bg: #1D4ED8;
+  --gsa-action-primary-bg-hover: #1E40AF;
+  --gsa-action-primary-bg-active: #1E3A8A;
+  --gsa-action-primary-bg-disabled: #E2E8F0;
+  --gsa-action-primary-text: #FFFFFF;
+  --gsa-action-primary-text-disabled: #94A3B8;
+  --gsa-action-primary-border: #1D4ED8;
+  --gsa-action-secondary-bg: #FFFFFF;
+  --gsa-action-secondary-bg-hover: #F1F5F9;
+  --gsa-action-secondary-bg-active: #E2E8F0;
+  --gsa-action-secondary-bg-disabled: #F1F5F9;
+  --gsa-action-secondary-text: #1E293B;
+  --gsa-action-secondary-text-disabled: #94A3B8;
+  --gsa-action-secondary-border: #CBD5E1;
+  --gsa-action-ghost-bg: transparent;
+  --gsa-action-ghost-bg-hover: #F1F5F9;
+  --gsa-action-ghost-bg-active: #E2E8F0;
+  --gsa-action-ghost-text: #334155;
+  --gsa-action-ghost-text-hover: #0F172A;
+  --gsa-action-ghost-border: transparent;
+  --gsa-action-destructive-bg: #E11D48;
+  --gsa-action-destructive-bg-hover: #BE123C;
+  --gsa-action-destructive-bg-active: #9F1239;
+  --gsa-action-destructive-text: #FFFFFF;
+  --gsa-action-destructive-border: #E11D48;
+  --gsa-action-accent-bg: #0891B2;
+  --gsa-action-accent-bg-hover: #0E7490;
+  --gsa-action-accent-bg-active: #155E75;
+  --gsa-action-accent-text: #FFFFFF;
+  --gsa-action-accent-border: #0891B2;
+
+  /* semantic / border */
+  --gsa-border-default: #E2E8F0;
+  --gsa-border-strong: #94A3B8;
+  --gsa-border-subtle: #F1F5F9;
+  --gsa-border-focus: #2563EB;
+  --gsa-border-focus-ring: rgba(37, 99, 235, 0.25);
+  --gsa-border-error: #F43F5E;
+  --gsa-border-success: #22C55E;
+  --gsa-border-warning: #F59E0B;
+  --gsa-border-info: #60A5FA;
+  --gsa-border-inverse: #334155;
+  --gsa-border-width-thin: 1px;
+  --gsa-border-width-default: 1px;
+  --gsa-border-width-thick: 2px;
+
+  /* semantic / environment */
+  --gsa-environment-dev-bg: #0E7490;
+  --gsa-environment-dev-text: #FFFFFF;
+  --gsa-environment-dev-border: #06B6D4;
+  --gsa-environment-dev-badge: #0891B2;
+  --gsa-environment-dev-label: DEV;
+  --gsa-environment-hml-bg: #D97706;
+  --gsa-environment-hml-text: #FFFFFF;
+  --gsa-environment-hml-border: #FBBF24;
+  --gsa-environment-hml-badge: #F59E0B;
+  --gsa-environment-hml-label: HML;
+  --gsa-environment-stg-bg: #B45309;
+  --gsa-environment-stg-text: #FFFFFF;
+  --gsa-environment-stg-border: #F59E0B;
+  --gsa-environment-stg-badge: #D97706;
+  --gsa-environment-stg-label: STG;
+  --gsa-environment-prod-bg: #1E293B;
+  --gsa-environment-prod-text: #F1F5F9;
+  --gsa-environment-prod-border: #475569;
+  --gsa-environment-prod-badge: #334155;
+  --gsa-environment-prod-label: PROD;
+
+  /* semantic / status */
+  --gsa-status-success-bg: #F0FDF4;
+  --gsa-status-success-bg-bold: #16A34A;
+  --gsa-status-success-text: #166534;
+  --gsa-status-success-border: #4ADE80;
+  --gsa-status-success-icon: #16A34A;
+  --gsa-status-warning-bg: #FFFBEB;
+  --gsa-status-warning-bg-bold: #F59E0B;
+  --gsa-status-warning-text: #92400E;
+  --gsa-status-warning-border: #FBBF24;
+  --gsa-status-warning-icon: #D97706;
+  --gsa-status-error-bg: #FFF1F2;
+  --gsa-status-error-bg-bold: #E11D48;
+  --gsa-status-error-text: #9F1239;
+  --gsa-status-error-border: #FB7185;
+  --gsa-status-error-icon: #E11D48;
+  --gsa-status-info-bg: #EFF6FF;
+  --gsa-status-info-bg-bold: #2563EB;
+  --gsa-status-info-text: #1E40AF;
+  --gsa-status-info-border: #93C5FD;
+  --gsa-status-info-icon: #2563EB;
+  --gsa-status-neutral-bg: #F1F5F9;
+  --gsa-status-neutral-bg-bold: #64748B;
+  --gsa-status-neutral-text: #334155;
+  --gsa-status-neutral-border: #CBD5E1;
+  --gsa-status-neutral-icon: #64748B;
+
+  /* semantic / surface */
+  --gsa-surface-base: #F8FAFC;
+  --gsa-surface-elevated: #FFFFFF;
+  --gsa-surface-overlay: rgba(15, 23, 42, 0.6);
+  --gsa-surface-card: #FFFFFF;
+  --gsa-surface-sidebar: #0F172A;
+  --gsa-surface-sidebar-item: transparent;
+  --gsa-surface-sidebar-active: #1D4ED8;
+  --gsa-surface-header: #0F172A;
+  --gsa-surface-footer: #1E293B;
+  --gsa-surface-modal: #FFFFFF;
+  --gsa-surface-tooltip: #1E293B;
+  --gsa-surface-code: #F1F5F9;
+  --gsa-surface-input: #FFFFFF;
+  --gsa-surface-input-disabled: #F1F5F9;
+  --gsa-surface-table-row: #FFFFFF;
+  --gsa-surface-table-row-alt: #F8FAFC;
+  --gsa-surface-table-header: #F1F5F9;
+
+  /* semantic / text */
+  --gsa-text-primary: #0F172A;
+  --gsa-text-secondary: #475569;
+  --gsa-text-tertiary: #94A3B8;
+  --gsa-text-disabled: #CBD5E1;
+  --gsa-text-inverse: #FFFFFF;
+  --gsa-text-link: #1D4ED8;
+  --gsa-text-link-hover: #1E3A8A;
+  --gsa-text-on-primary: #FFFFFF;
+  --gsa-text-on-accent: #020617;
+  --gsa-text-error: #BE123C;
+  --gsa-text-warning: #B45309;
+  --gsa-text-success: #15803D;
+  --gsa-text-info: #1D4ED8;
+  --gsa-text-code: #155E75;
+}

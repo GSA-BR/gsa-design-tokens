@@ -1,0 +1,21 @@
+{
+  "$description": "Tema do domínio MDM — Master Data Management. Visual sólido para gestão de dados mestres.",
+  "$name": "domain-mdm",
+  "$type": "light",
+  "$extends": "gsa-light",
+  "surface": {
+    "sidebar":        "#1E3A8A",
+    "sidebar-active": "#2563EB",
+    "header":         "#1E3A8A"
+  },
+  "action": {
+    "primary-bg":       "#2563EB",
+    "primary-bg-hover": "#1D4ED8"
+  },
+  "brand": {
+    "primary":   "#1E3A8A",
+    "secondary":  "#2563EB",
+    "accent":     "#60A5FA",
+    "name":       "MDM"
+  }
+}

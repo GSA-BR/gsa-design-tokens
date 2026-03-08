@@ -1,0 +1,21 @@
+{
+  "$description": "Tema do domínio Auth — módulo de autenticação e autorização do ecossistema GSA. Visual sóbrio e seguro.",
+  "$name": "domain-auth",
+  "$type": "light",
+  "$extends": "gsa-light",
+  "surface": {
+    "sidebar":        "#172554",
+    "sidebar-active": "#1D4ED8",
+    "header":         "#172554"
+  },
+  "action": {
+    "primary-bg":       "#1D4ED8",
+    "primary-bg-hover": "#1E40AF"
+  },
+  "brand": {
+    "primary":   "#172554",
+    "secondary":  "#1D4ED8",
+    "accent":     "#06B6D4",
+    "name":       "Auth"
+  }
+}

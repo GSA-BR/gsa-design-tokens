@@ -1,0 +1,23 @@
+{
+  "name": "@gsa-br/design-tokens",
+  "version": "1.0.0",
+  "description": "Design tokens oficiais do ecossistema GSA — fonte única, versionada e canônica dos tokens visuais.",
+  "license": "MIT",
+  "main": "build/json/tokens.json",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "build:css": "node scripts/build.js --only css",
+    "build:json": "node scripts/build.js --only json",
+    "build:blazor": "node scripts/build.js --only blazor"
+  },
+  "keywords": [
+    "design-tokens",
+    "gsa",
+    "design-system",
+    "css-variables"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GSA-BR/gsa-design-tokens.git"
+  }
+}
