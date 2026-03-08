@@ -376,13 +376,86 @@ function buildBlazor(tokens) {
   console.log('✔ build/blazor/_gsa-tokens.scss');
 }
 
+// ─── Validação ─────────────────────────────────────────────────────────────
+
+/**
+ * Diretórios obrigatórios e seus arquivos mínimos.
+ * O build falha se qualquer um destes estiver ausente.
+ */
+const REQUIRED_STRUCTURE = {
+  'src/core':     ['colors.json', 'typography.json', 'spacing.json', 'radius.json', 'shadow.json'],
+  'src/semantic':  ['text.json', 'surface.json', 'border.json', 'action.json', 'status.json'],
+  'src/themes':    ['gsa-light.json']
+};
+
+/**
+ * Valida a estrutura de diretórios, arquivos obrigatórios e JSON válido.
+ * Retorna lista de erros. Lista vazia = tudo OK.
+ */
+function validate() {
+  const errors = [];
+
+  // 1. Verificar diretórios e arquivos obrigatórios
+  for (const [dir, requiredFiles] of Object.entries(REQUIRED_STRUCTURE)) {
+    const fullDir = path.join(ROOT, dir);
+    if (!fs.existsSync(fullDir)) {
+      errors.push(`Diretório obrigatório não encontrado: ${dir}/`);
+      continue;
+    }
+    for (const file of requiredFiles) {
+      const fullPath = path.join(fullDir, file);
+      if (!fs.existsSync(fullPath)) {
+        errors.push(`Arquivo obrigatório não encontrado: ${dir}/${file}`);
+      }
+    }
+  }
+
+  // 2. Validar JSON de todos os arquivos fonte
+  const srcDirs = ['core', 'semantic', 'themes'];
+  for (const sub of srcDirs) {
+    const dir = path.join(SRC, sub);
+    if (!fs.existsSync(dir)) continue;
+    const files = fs.readdirSync(dir).filter(f => f.endsWith('.json'));
+    for (const file of files) {
+      const filePath = path.join(dir, file);
+      try {
+        const raw = fs.readFileSync(filePath, 'utf8');
+        JSON.parse(raw);
+      } catch (err) {
+        errors.push(`JSON inválido em src/${sub}/${file}: ${err.message}`);
+      }
+    }
+  }
+
+  return errors;
+}
+
 // ─── Main ──────────────────────────────────────────────────────────────────
 
 function main() {
   const args   = process.argv.slice(2);
   const only   = args.includes('--only') ? args[args.indexOf('--only') + 1] : null;
+  const validateOnly = args.includes('--validate');
 
   console.log('\n🔨 GSA Design Tokens — Build\n');
+
+  // Validação pré-build
+  console.log('🔍 Validando estrutura de tokens...');
+  const errors = validate();
+  if (errors.length > 0) {
+    console.error('\n❌ Validação falhou:\n');
+    for (const err of errors) {
+      console.error(`  • ${err}`);
+    }
+    console.error('');
+    process.exit(1);
+  }
+  console.log('✔ Estrutura válida.\n');
+
+  if (validateOnly) {
+    console.log('✅ Validação concluída com sucesso.\n');
+    return;
+  }
 
   const tokens = loadAllTokens();
 
