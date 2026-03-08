@@ -2,7 +2,8 @@
   "name": "@gsa-br/design-tokens",
   "version": "1.0.0",
   "description": "Design tokens oficiais do ecossistema GSA — fonte única, versionada e canônica dos tokens visuais.",
-  "license": "MIT",
+  "license": "UNLICENSED",
+  "private": true,
   "main": "build/json/tokens.json",
   "scripts": {
     "build": "node scripts/build.js",
