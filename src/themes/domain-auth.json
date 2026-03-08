@@ -4,17 +4,15 @@
   "$type": "light",
   "$extends": "gsa-light",
   "surface": {
-    "sidebar":        "#172554",
-    "sidebar-active": "#1D4ED8",
-    "header":         "#172554"
+    "sidebar-active": "#DBEAFE"
   },
   "action": {
     "primary-bg":       "#1D4ED8",
     "primary-bg-hover": "#1E40AF"
   },
   "brand": {
-    "primary":   "#172554",
-    "secondary":  "#1D4ED8",
+    "primary":   "#1E3A8A",
+    "secondary":  "#2563EB",
     "accent":     "#06B6D4",
     "name":       "Auth"
   }

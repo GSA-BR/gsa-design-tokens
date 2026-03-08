@@ -3,13 +3,13 @@
   "$extends": "gsa-light",
   "base":           "{core.gray.50}",
   "elevated":       "{core.white}",
-  "overlay":        "rgba(15, 23, 42, 0.6)",
+  "overlay":        "rgba(15, 23, 42, 0.5)",
   "card":           "{core.white}",
-  "sidebar":        "{core.gray.900}",
+  "sidebar":        "{core.white}",
   "sidebar-item":   "transparent",
-  "sidebar-active": "{core.blue.700}",
-  "header":         "{core.gray.900}",
-  "footer":         "{core.gray.800}",
+  "sidebar-active": "{core.blue.50}",
+  "header":         "{core.white}",
+  "footer":         "{core.gray.50}",
   "modal":          "{core.white}",
   "tooltip":        "{core.gray.800}",
   "code":           "{core.gray.100}",
@@ -17,5 +17,5 @@
   "input-disabled": "{core.gray.100}",
   "table-row":      "{core.white}",
   "table-row-alt":  "{core.gray.50}",
-  "table-header":   "{core.gray.100}"
+  "table-header":   "{core.gray.50}"
 }
