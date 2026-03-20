@@ -1,0 +1,12 @@
+# GSA Ecosystem — Repository ownership
+# Source: gsa-docs rollout plan
+
+# Protect CI/CD and config
+.github/ @gsabr-dev
+.editorconfig @gsabr-dev
+.gitattributes @gsabr-dev
+.gitignore @gsabr-dev
+CODEOWNERS @gsabr-dev
+
+# Protect token sources
+src/ @gsabr-dev
