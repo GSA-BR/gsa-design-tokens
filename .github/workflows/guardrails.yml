@@ -1,0 +1,13 @@
+name: GSA Guardrails
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  guardrails:
+    uses: GSA-BR/gsa-docs/.github/workflows/gsa-guardrails.yml@main
+    with:
+      repo_kind: "lib"
+      language: "node"

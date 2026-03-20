@@ -1,5 +1,7 @@
 # gsa-design-tokens
 
+> **Canonical standards:** [gsa-docs](https://github.com/GSA-BR/gsa-docs) · [Constitution](https://github.com/GSA-BR/gsa-docs/tree/main/constitution) · [Standards](https://github.com/GSA-BR/gsa-docs/tree/main/standards)
+
 > **Fonte única, versionada e canônica dos design tokens oficiais do ecossistema GSA.**
 
 [![Version](https://img.shields.io/badge/versão-1.0.0-blue)](#)
