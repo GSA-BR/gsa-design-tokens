@@ -1,5 +1,5 @@
 {
-  "$description": "Tokens semânticos de status. Definem as cores para feedback visual de estados: sucesso, atenção, erro, informação.",
+  "$description": "Semantic status tokens. Defines colors for visual state feedback: success, warning, error, info.",
   "$extends": "gsa-light",
   "success": {
     "bg":     "{core.green.50}",

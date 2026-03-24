@@ -1,11 +1,11 @@
-// GSA Design Tokens — Constantes C#
-// Gerado automaticamente. Não editar diretamente.
+// GSA Design Tokens — C# Constants
+// Auto-generated. Do not edit directly.
 
 namespace Gsa.DesignTokens;
 
 /// <summary>
-/// Tokens de design do ecossistema GSA.
-/// Use as constantes desta classe para referenciar valores de design de forma type-safe.
+/// Design tokens for the GSA ecosystem.
+/// Use these constants to reference design values in a type-safe manner.
 /// </summary>
 public static class GsaTokens
 {

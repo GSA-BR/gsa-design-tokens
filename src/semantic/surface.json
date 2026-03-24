@@ -1,5 +1,5 @@
 {
-  "$description": "Tokens semânticos de superfície (backgrounds). Define camadas visuais da interface.",
+  "$description": "Semantic surface (background) tokens. Defines visual layers of the interface.",
   "$extends": "gsa-light",
   "base":           "{core.gray.50}",
   "elevated":       "{core.white}",

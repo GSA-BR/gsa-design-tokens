@@ -1,5 +1,5 @@
 {
-  "$description": "Tokens de dimensionamento de elementos da interface: ícones, alturas de componentes e containers.",
+  "$description": "Interface element sizing tokens: icons, component heights, and containers.",
   "icon": {
     "xs":  "0.75rem",
     "sm":  "1rem",

@@ -1,7 +1,7 @@
 {
-  "$description": "Tokens semânticos de ambiente. Definem identidade visual distinta para cada ambiente de execução do sistema.",
+  "$description": "Semantic environment tokens. Defines distinct visual identity for each system execution environment.",
   "dev": {
-    "$description": "Ambiente de desenvolvimento local. Indicador visual: ciano técnico.",
+    "$description": "Local development environment. Visual indicator: technical cyan.",
     "bg":     "{core.cyan.700}",
     "text":   "{core.white}",
     "border": "{core.cyan.500}",
@@ -9,7 +9,7 @@
     "label":  "DEV"
   },
   "hml": {
-    "$description": "Ambiente de homologação/staging. Indicador visual: âmbar industrial.",
+    "$description": "Homologation/staging environment. Visual indicator: industrial amber.",
     "bg":     "{core.amber.600}",
     "text":   "{core.white}",
     "border": "{core.amber.400}",
@@ -17,7 +17,7 @@
     "label":  "HML"
   },
   "stg": {
-    "$description": "Ambiente de staging (equivalente ao HML). Indicador visual: âmbar com tom mais escuro.",
+    "$description": "Staging environment (equivalent to HML). Visual indicator: darker amber tone.",
     "bg":     "{core.amber.700}",
     "text":   "{core.white}",
     "border": "{core.amber.500}",
@@ -25,7 +25,7 @@
     "label":  "STG"
   },
   "prod": {
-    "$description": "Ambiente de produção. Visual sóbrio e corporativo: sem indicador de alerta.",
+    "$description": "Production environment. Sober, corporate visual: no alert indicator.",
     "bg":     "{core.gray.800}",
     "text":   "{core.gray.100}",
     "border": "{core.gray.600}",

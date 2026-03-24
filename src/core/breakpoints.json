@@ -1,5 +1,5 @@
 {
-  "$description": "Breakpoints de responsividade. Define os pontos de corte para adaptar layouts a diferentes tamanhos de tela.",
+  "$description": "Responsive breakpoints. Defines cutoff points for adapting layouts to different screen sizes.",
   "xs":  "320px",
   "sm":  "480px",
   "md":  "768px",

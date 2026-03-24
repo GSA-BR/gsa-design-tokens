@@ -1,5 +1,5 @@
 {
-  "$description": "Tokens de animação e transição. Define durações e curvas de easing para animações consistentes.",
+  "$description": "Animation and transition tokens. Defines durations and easing curves for consistent animations.",
   "duration": {
     "instant":  "0ms",
     "fast":     "100ms",

@@ -1,5 +1,5 @@
 {
-  "$description": "Tokens semânticos de ação. Define as cores dos elementos interativos da interface: botões, links, controles.",
+  "$description": "Semantic action tokens. Defines colors for interactive interface elements: buttons, links, controls.",
   "$extends": "gsa-light",
   "primary": {
     "bg":            "{core.blue.600}",

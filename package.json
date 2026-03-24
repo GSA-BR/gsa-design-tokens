@@ -1,7 +1,7 @@
 {
   "name": "@gsa-br/design-tokens",
   "version": "1.0.0",
-  "description": "Design tokens oficiais do ecossistema GSA — fonte única, versionada e canônica dos tokens visuais.",
+  "description": "Official GSA ecosystem design tokens — single, versioned, canonical source of visual tokens.",
   "license": "UNLICENSED",
   "private": true,
   "main": "build/json/tokens.json",

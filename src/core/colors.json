@@ -1,5 +1,5 @@
 {
-  "$description": "Paleta de cores base do ecossistema GSA. Cores cruas, sem semântica de uso.",
+  "$description": "Base color palette for the GSA ecosystem. Raw colors without usage semantics.",
   "blue": {
     "50":  "#EFF6FF",
     "100": "#DBEAFE",

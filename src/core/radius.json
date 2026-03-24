@@ -1,5 +1,5 @@
 {
-  "$description": "Escala de border-radius. Define o nível de arredondamento dos elementos da interface.",
+  "$description": "Border-radius scale. Defines the rounding level for interface elements.",
   "none": "0rem",
   "xs":   "0.125rem",
   "sm":   "0.25rem",

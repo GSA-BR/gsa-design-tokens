@@ -1,5 +1,5 @@
 {
-  "$description": "Tema do domínio Factory — módulo de automação e manufatura. Visual industrial e técnico.",
+  "$description": "Factory domain theme — automation and manufacturing module. Industrial, technical visual.",
   "$name": "domain-factory",
   "$type": "light",
   "$extends": "gsa-light",

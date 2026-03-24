@@ -1,5 +1,5 @@
 {
-  "$description": "Tema do domínio OPS — Operações. Visual robusto para monitoramento e operações industriais.",
+  "$description": "OPS domain theme — Operations. Robust visual for monitoring and industrial operations.",
   "$name": "domain-ops",
   "$type": "light",
   "$extends": "gsa-light",

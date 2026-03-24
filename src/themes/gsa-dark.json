@@ -1,5 +1,5 @@
 {
-  "$description": "Tema escuro do ecossistema GSA — interface dark enterprise para ambientes de baixa luminosidade.",
+  "$description": "Dark theme for the GSA ecosystem — enterprise dark interface for low-light environments.",
   "$name": "gsa-dark",
   "$type": "dark",
   "text": {

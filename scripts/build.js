@@ -3,13 +3,13 @@
 /**
  * GSA Design Tokens — Build Script
  *
- * Lê os arquivos de token em src/ e gera:
- *   build/css/   → CSS Custom Properties (variáveis CSS)
- *   build/json/  → JSON consolidado de todos os tokens
- *   build/blazor/→ Constantes C# para consumo em Blazor
+ * Reads token files from src/ and generates:
+ *   build/css/   → CSS Custom Properties
+ *   build/json/  → Consolidated JSON of all tokens
+ *   build/blazor/→ C# constants for Blazor consumption
  *
- * Uso:
- *   node scripts/build.js           → gera tudo
+ * Usage:
+ *   node scripts/build.js           → generates everything
  *   node scripts/build.js --only css
  *   node scripts/build.js --only json
  *   node scripts/build.js --only blazor
@@ -20,7 +20,7 @@
 const fs   = require('fs');
 const path = require('path');
 
-// ─── Caminhos ──────────────────────────────────────────────────────────────
+// ─── Paths ──────────────────────────────────────────────────────────────
 
 const ROOT    = path.resolve(__dirname, '..');
 const SRC     = path.join(ROOT, 'src');
@@ -29,7 +29,7 @@ const CSS_DIR = path.join(BUILD, 'css');
 const JSON_DIR= path.join(BUILD, 'json');
 const BLZ_DIR = path.join(BUILD, 'blazor');
 
-// ─── Utilitários ───────────────────────────────────────────────────────────
+// ─── Utilities ──────────────────────────────────────────────────────────
 
 function ensureDir(dir) {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
@@ -40,7 +40,7 @@ function readJson(filePath) {
     const raw = fs.readFileSync(filePath, 'utf8');
     return JSON.parse(raw);
   } catch (err) {
-    console.error(`Erro ao ler ${filePath}: ${err.message}`);
+    console.error(`Error reading ${filePath}: ${err.message}`);
     process.exit(1);
   }
 }
@@ -53,8 +53,8 @@ function readDir(dir) {
 }
 
 /**
- * Achata um objeto aninhado em pares chave/valor com separador dado.
- * Ignora chaves que começam com '$' (metadados).
+ * Flattens a nested object into key/value pairs with the given separator.
+ * Ignores keys starting with '$' (metadata).
  */
 function flatten(obj, prefix = '', sep = '-') {
   const result = {};
@@ -71,8 +71,8 @@ function flatten(obj, prefix = '', sep = '-') {
 }
 
 /**
- * Converte nome de token para CSS Custom Property.
- * ex: "color.blue.50" → "--gsa-core-color-blue-50"
+ * Converts a token name to a CSS Custom Property.
+ * e.g. "color.blue.50" → "--gsa-core-color-blue-50"
  */
 function toCssVar(category, key) {
   const sanitized = key.replace(/\./g, '-');
@@ -80,19 +80,19 @@ function toCssVar(category, key) {
 }
 
 /**
- * Constrói um mapa de referências a partir dos tokens core.
- * Suporta dois formatos de referência:
- *   {core.color.blue.700}           → usa o caminho dentro dos dados
- *   {core.colors.color.blue.700}    → usa o nome do arquivo como prefixo
+ * Builds a reference map from core tokens.
+ * Supports two reference formats:
+ *   {core.color.blue.700}           → uses the path within the data
+ *   {core.colors.color.blue.700}    → uses the filename as prefix
  */
 function buildCoreRefMap(coreTokens) {
   const map = {};
   for (const { name, data } of coreTokens) {
     const flat = flatten(data, '', '.');
     for (const [key, value] of Object.entries(flat)) {
-      // Formato curto: core.{caminho} — ex: core.color.blue.700
+      // Short format: core.{path} — e.g. core.color.blue.700
       map[`core.${key}`] = value;
-      // Formato longo: core.{arquivo}.{caminho} — ex: core.colors.color.blue.700
+      // Long format: core.{file}.{path} — e.g. core.colors.color.blue.700
       map[`core.${name}.${key}`] = value;
     }
   }
@@ -100,8 +100,8 @@ function buildCoreRefMap(coreTokens) {
 }
 
 /**
- * Resolve referências no formato {core.categoria.chave} dentro de um objeto de tokens.
- * Referências não encontradas são mantidas como estão (com aviso no console).
+ * Resolves references in the format {core.category.key} within a token object.
+ * Unresolved references are kept as-is (with a console warning).
  */
 function resolveRefs(obj, refMap) {
   const resolved = {};
@@ -109,7 +109,7 @@ function resolveRefs(obj, refMap) {
     if (typeof value === 'string') {
       resolved[key] = value.replace(/\{([^}]+)\}/g, (match, ref) => {
         if (refMap[ref] !== undefined) return refMap[ref];
-        console.warn(`  ⚠ Referência não resolvida: ${match}`);
+        console.warn(`  ⚠ Unresolved reference: ${match}`);
         return match;
       });
     } else {
@@ -120,20 +120,20 @@ function resolveRefs(obj, refMap) {
 }
 
 /**
- * Converte nome de token para nome de constante C#.
- * ex: "blue-700" → "Blue700"
- * ex: "4"        → "Size4" (prefixo para identificadores numéricos)
+ * Converts a token name to a C# constant name.
+ * e.g. "blue-700" → "Blue700"
+ * e.g. "4"        → "Size4" (prefix for numeric identifiers)
  */
 function toCsharpName(key) {
   const name = key
     .split(/[-.]/)
     .map(p => p.charAt(0).toUpperCase() + p.slice(1))
     .join('');
-  // Identificadores C# não podem começar com dígito
+  // C# identifiers cannot start with a digit
   return /^\d/.test(name) ? `Size${name}` : name;
 }
 
-// ─── Leitura dos tokens ────────────────────────────────────────────────────
+// ─── Token loading ──────────────────────────────────────────────────────
 
 function loadAllTokens() {
   const core     = readDir(path.join(SRC, 'core'));
@@ -143,15 +143,15 @@ function loadAllTokens() {
   return { core, semantic, themes, refMap };
 }
 
-// ─── Geração de CSS ────────────────────────────────────────────────────────
+// ─── CSS generation ─────────────────────────────────────────────────────
 
 function buildCss(tokens) {
   ensureDir(CSS_DIR);
 
   const { core, semantic, themes, refMap } = tokens;
 
-  // 1. tokens.core.css — variáveis core
-  let coreLines = ['/**', ' * GSA Design Tokens — Core', ' * Gerado automaticamente. Não editar diretamente.', ' */', ':root {'];
+  // 1. tokens.core.css — core variables
+  let coreLines = ['/**', ' * GSA Design Tokens — Core', ' * Auto-generated. Do not edit directly.', ' */', ':root {'];
   for (const { name, data } of core) {
     coreLines.push(`\n  /* core / ${name} */`);
     const flat = flatten(data);
@@ -163,8 +163,8 @@ function buildCss(tokens) {
   fs.writeFileSync(path.join(CSS_DIR, 'tokens.core.css'), coreLines.join('\n') + '\n');
   console.log('✔ build/css/tokens.core.css');
 
-  // 2. tokens.semantic.css — variáveis semânticas (referências resolvidas)
-  let semLines = ['/**', ' * GSA Design Tokens — Semantic', ' * Gerado automaticamente. Não editar diretamente.', ' */', ':root {'];
+  // 2. tokens.semantic.css — semantic variables (references resolved)
+  let semLines = ['/**', ' * GSA Design Tokens — Semantic', ' * Auto-generated. Do not edit directly.', ' */', ':root {'];
   for (const { name, data } of semantic) {
     semLines.push(`\n  /* semantic / ${name} */`);
     const flat     = flatten(data);
@@ -177,14 +177,14 @@ function buildCss(tokens) {
   fs.writeFileSync(path.join(CSS_DIR, 'tokens.semantic.css'), semLines.join('\n') + '\n');
   console.log('✔ build/css/tokens.semantic.css');
 
-  // 3. Um arquivo CSS por tema
+  // 3. One CSS file per theme
   for (const { name, data } of themes) {
     const flat = flatten(data);
     const selector = `[data-theme="${name}"]`;
     let lines = [
       '/**',
       ` * GSA Design Tokens — Theme: ${name}`,
-      ' * Gerado automaticamente. Não editar diretamente.',
+      ' * Auto-generated. Do not edit directly.',
       ' */',
       `${selector} {`
     ];
@@ -196,7 +196,7 @@ function buildCss(tokens) {
     console.log(`✔ build/css/theme.${name}.css`);
   }
 
-  // 4. tokens.all.css — arquivo único com tudo
+  // 4. tokens.all.css — single file with everything
   const allFiles = [
     'tokens.core.css',
     'tokens.semantic.css',
@@ -204,8 +204,8 @@ function buildCss(tokens) {
   ];
   const allContent = [
     '/**',
-    ' * GSA Design Tokens — Bundle completo',
-    ' * Gerado automaticamente. Não editar diretamente.',
+    ' * GSA Design Tokens — Complete bundle',
+    ' * Auto-generated. Do not edit directly.',
     ' */',
     ...allFiles.map(f => `@import url("./${f}");`)
   ].join('\n') + '\n';
@@ -213,19 +213,19 @@ function buildCss(tokens) {
   console.log('✔ build/css/tokens.all.css');
 }
 
-// ─── Geração de JSON ───────────────────────────────────────────────────────
+// ─── JSON generation ────────────────────────────────────────────────────
 
 function buildJson(tokens) {
   ensureDir(JSON_DIR);
 
   const { core, semantic, themes } = tokens;
 
-  // JSON consolidado completo
+  // Consolidated JSON
   const consolidated = {
     $meta: {
       generated:  new Date().toISOString(),
       version:    '1.0.0',
-      description:'GSA Design Tokens — Tokens consolidados do ecossistema GSA'
+      description:'GSA Design Tokens — Consolidated tokens for the GSA ecosystem'
     },
     core:     {},
     semantic: {},
@@ -248,7 +248,7 @@ function buildJson(tokens) {
   );
   console.log('✔ build/json/tokens.json');
 
-  // JSON achatado (flat) para consumo direto
+  // Flat JSON for direct consumption
   const flat = {};
   for (const { name, data } of core) {
     const f = flatten(data);
@@ -276,23 +276,23 @@ function buildJson(tokens) {
   console.log('✔ build/json/tokens.flat.json');
 }
 
-// ─── Geração de Blazor ─────────────────────────────────────────────────────
+// ─── Blazor generation ──────────────────────────────────────────────────
 
 function buildBlazor(tokens) {
   ensureDir(BLZ_DIR);
 
   const { core, themes } = tokens;
 
-  // 1. GsaTokens.cs — constantes C# com valores dos tokens core
+  // 1. GsaTokens.cs — C# constants with core token values
   let csLines = [
-    '// GSA Design Tokens — Constantes C#',
-    '// Gerado automaticamente. Não editar diretamente.',
+    '// GSA Design Tokens — C# Constants',
+    '// Auto-generated. Do not edit directly.',
     '',
     'namespace Gsa.DesignTokens;',
     '',
     '/// <summary>',
-    '/// Tokens de design do ecossistema GSA.',
-    '/// Use as constantes desta classe para referenciar valores de design de forma type-safe.',
+    '/// Design tokens for the GSA ecosystem.',
+    '/// Use these constants to reference design values in a type-safe manner.',
     '/// </summary>',
     'public static class GsaTokens',
     '{'
@@ -317,17 +317,17 @@ function buildBlazor(tokens) {
   fs.writeFileSync(path.join(BLZ_DIR, 'GsaTokens.cs'), csLines.join('\n') + '\n');
   console.log('✔ build/blazor/GsaTokens.cs');
 
-  // 2. GsaThemes.cs — enum de temas disponíveis
+  // 2. GsaThemes.cs — enum of available themes
   const themeNames = themes.map(t => t.name);
   const enumLines = [
-    '// GSA Design Tokens — Enum de Temas',
-    '// Gerado automaticamente. Não editar diretamente.',
+    '// GSA Design Tokens — Theme Enum',
+    '// Auto-generated. Do not edit directly.',
     '',
     'namespace Gsa.DesignTokens;',
     '',
     '/// <summary>',
-    '/// Temas disponíveis no ecossistema GSA.',
-    '/// Aplique o valor como atributo data-theme no elemento raiz da página.',
+    '/// Available themes in the GSA ecosystem.',
+    '/// Apply the value as a data-theme attribute on the page root element.',
     '/// </summary>',
     'public enum GsaTheme',
     '{'
@@ -341,7 +341,7 @@ function buildBlazor(tokens) {
   enumLines.push('');
   enumLines.push('public static class GsaThemeExtensions');
   enumLines.push('{');
-  enumLines.push('    /// <summary>Retorna o valor do atributo data-theme para o tema informado.</summary>');
+  enumLines.push('    /// <summary>Returns the data-theme attribute value for the given theme.</summary>');
   enumLines.push('    public static string ToDataAttribute(this GsaTheme theme) => theme switch');
   enumLines.push('    {');
   for (const themeName of themeNames) {
@@ -355,11 +355,11 @@ function buildBlazor(tokens) {
   fs.writeFileSync(path.join(BLZ_DIR, 'GsaThemes.cs'), enumLines.join('\n') + '\n');
   console.log('✔ build/blazor/GsaThemes.cs');
 
-  // 3. _gsa-tokens.scss — variáveis SCSS para consumo em projetos Blazor com estilos
+  // 3. _gsa-tokens.scss — SCSS variables for Blazor projects with styles
   const scssLines = [
-    '// GSA Design Tokens — Variáveis SCSS',
-    '// Gerado automaticamente. Não editar diretamente.',
-    '// Importar este arquivo antes de usar variáveis de design.',
+    '// GSA Design Tokens — SCSS Variables',
+    '// Auto-generated. Do not edit directly.',
+    '// Import this file before using design variables.',
     ''
   ];
   for (const { name, data } of core) {
@@ -376,11 +376,11 @@ function buildBlazor(tokens) {
   console.log('✔ build/blazor/_gsa-tokens.scss');
 }
 
-// ─── Validação ─────────────────────────────────────────────────────────────
+// ─── Validation ─────────────────────────────────────────────────────────
 
 /**
- * Diretórios obrigatórios e seus arquivos mínimos.
- * O build falha se qualquer um destes estiver ausente.
+ * Required directories and their minimum files.
+ * The build fails if any of these are missing.
  */
 const REQUIRED_STRUCTURE = {
   'src/core':     ['colors.json', 'typography.json', 'spacing.json', 'radius.json', 'shadow.json'],
@@ -389,28 +389,28 @@ const REQUIRED_STRUCTURE = {
 };
 
 /**
- * Valida a estrutura de diretórios, arquivos obrigatórios e JSON válido.
- * Retorna lista de erros. Lista vazia = tudo OK.
+ * Validates the directory structure, required files, and valid JSON.
+ * Returns a list of errors. Empty list = all OK.
  */
 function validate() {
   const errors = [];
 
-  // 1. Verificar diretórios e arquivos obrigatórios
+  // 1. Check required directories and files
   for (const [dir, requiredFiles] of Object.entries(REQUIRED_STRUCTURE)) {
     const fullDir = path.join(ROOT, dir);
     if (!fs.existsSync(fullDir)) {
-      errors.push(`Diretório obrigatório não encontrado: ${dir}/`);
+      errors.push(`Required directory not found: ${dir}/`);
       continue;
     }
     for (const file of requiredFiles) {
       const fullPath = path.join(fullDir, file);
       if (!fs.existsSync(fullPath)) {
-        errors.push(`Arquivo obrigatório não encontrado: ${dir}/${file}`);
+        errors.push(`Required file not found: ${dir}/${file}`);
       }
     }
   }
 
-  // 2. Validar JSON de todos os arquivos fonte
+  // 2. Validate JSON in all source files
   const srcDirs = ['core', 'semantic', 'themes'];
   for (const sub of srcDirs) {
     const dir = path.join(SRC, sub);
@@ -422,7 +422,7 @@ function validate() {
         const raw = fs.readFileSync(filePath, 'utf8');
         JSON.parse(raw);
       } catch (err) {
-        errors.push(`JSON inválido em src/${sub}/${file}: ${err.message}`);
+        errors.push(`Invalid JSON in src/${sub}/${file}: ${err.message}`);
       }
     }
   }
@@ -430,7 +430,7 @@ function validate() {
   return errors;
 }
 
-// ─── Main ──────────────────────────────────────────────────────────────────
+// ─── Main ───────────────────────────────────────────────────────────────
 
 function main() {
   const args   = process.argv.slice(2);
@@ -439,21 +439,21 @@ function main() {
 
   console.log('\n🔨 GSA Design Tokens — Build\n');
 
-  // Validação pré-build
-  console.log('🔍 Validando estrutura de tokens...');
+  // Pre-build validation
+  console.log('🔍 Validating token structure...');
   const errors = validate();
   if (errors.length > 0) {
-    console.error('\n❌ Validação falhou:\n');
+    console.error('\n❌ Validation failed:\n');
     for (const err of errors) {
       console.error(`  • ${err}`);
     }
     console.error('');
     process.exit(1);
   }
-  console.log('✔ Estrutura válida.\n');
+  console.log('✔ Structure valid.\n');
 
   if (validateOnly) {
-    console.log('✅ Validação concluída com sucesso.\n');
+    console.log('✅ Validation completed successfully.\n');
     return;
   }
 
@@ -463,7 +463,7 @@ function main() {
   if (!only || only === 'json')   buildJson(tokens);
   if (!only || only === 'blazor') buildBlazor(tokens);
 
-  console.log('\n✅ Build concluído.\n');
+  console.log('\n✅ Build completed.\n');
 }
 
 main();
