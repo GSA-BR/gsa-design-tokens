@@ -1,5 +1,5 @@
 {
-  "$description": "Tema do domínio IAM — módulo de Identity and Access Management. Visual focado em identidade e controle de acesso.",
+  "$description": "IAM domain theme — Identity and Access Management module. Visual focused on identity and access control.",
   "$name": "domain-iam",
   "$type": "light",
   "$extends": "gsa-light",

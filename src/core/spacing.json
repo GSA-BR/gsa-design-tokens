@@ -1,5 +1,5 @@
 {
-  "$description": "Escala de espaçamento base. Baseada em múltiplos de 4px (0.25rem). Usada para margin, padding, gap e posicionamento.",
+  "$description": "Base spacing scale. Based on 4px (0.25rem) multiples. Used for margin, padding, gap, and positioning.",
   "0":   "0rem",
   "px":  "0.0625rem",
   "0-5": "0.125rem",

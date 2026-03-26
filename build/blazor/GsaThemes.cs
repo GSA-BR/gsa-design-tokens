@@ -1,11 +1,11 @@
-// GSA Design Tokens — Enum de Temas
-// Gerado automaticamente. Não editar diretamente.
+// GSA Design Tokens — Theme Enum
+// Auto-generated. Do not edit directly.
 
 namespace Gsa.DesignTokens;
 
 /// <summary>
-/// Temas disponíveis no ecossistema GSA.
-/// Aplique o valor como atributo data-theme no elemento raiz da página.
+/// Available themes in the GSA ecosystem.
+/// Apply the value as a data-theme attribute on the page root element.
 /// </summary>
 public enum GsaTheme
 {
@@ -29,7 +29,7 @@ public enum GsaTheme
 
 public static class GsaThemeExtensions
 {
-    /// <summary>Retorna o valor do atributo data-theme para o tema informado.</summary>
+    /// <summary>Returns the data-theme attribute value for the given theme.</summary>
     public static string ToDataAttribute(this GsaTheme theme) => theme switch
     {
         GsaTheme.DomainAuth => "domain-auth",

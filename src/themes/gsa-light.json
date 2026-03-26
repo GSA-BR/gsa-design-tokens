@@ -1,5 +1,5 @@
 {
-  "$description": "Tema padrão do ecossistema GSA — interface clara, premium, enterprise e moderna.",
+  "$description": "Default GSA ecosystem theme — light, premium, enterprise, and modern interface.",
   "$name": "gsa-light",
   "$type": "light",
   "text": {

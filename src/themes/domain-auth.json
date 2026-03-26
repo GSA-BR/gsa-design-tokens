@@ -1,5 +1,5 @@
 {
-  "$description": "Tema do domínio Auth — módulo de autenticação e autorização do ecossistema GSA. Visual sóbrio e seguro.",
+  "$description": "Auth domain theme — authentication and authorization module. Sober, secure visual.",
   "$name": "domain-auth",
   "$type": "light",
   "$extends": "gsa-light",

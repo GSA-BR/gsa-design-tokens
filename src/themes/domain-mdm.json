@@ -1,5 +1,5 @@
 {
-  "$description": "Tema do domínio MDM — Master Data Management. Visual sólido para gestão de dados mestres.",
+  "$description": "MDM domain theme — Master Data Management. Solid visual for master data governance.",
   "$name": "domain-mdm",
   "$type": "light",
   "$extends": "gsa-light",

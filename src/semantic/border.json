@@ -1,5 +1,5 @@
 {
-  "$description": "Tokens semânticos de borda. Define cor e foco para bordas de componentes.",
+  "$description": "Semantic border tokens. Defines color and focus for component borders.",
   "$extends": "gsa-light",
   "default":    "{core.gray.200}",
   "strong":     "{core.gray.300}",

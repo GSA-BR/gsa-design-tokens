@@ -1,5 +1,5 @@
 {
-  "$description": "Tema do domínio SGQ — Sistema de Gestão da Qualidade. Visual que transmite precisão e conformidade.",
+  "$description": "SGQ domain theme — Quality Management System. Visual conveying precision and compliance.",
   "$name": "domain-sgq",
   "$type": "light",
   "$extends": "gsa-light",

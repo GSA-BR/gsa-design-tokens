@@ -1,5 +1,5 @@
 {
-  "$description": "Tokens semânticos de cor de texto. Cada token define um propósito de uso, não uma cor crua.",
+  "$description": "Semantic text color tokens. Each token defines a usage purpose, not a raw color.",
   "$extends": "gsa-light",
   "primary":    "{core.gray.800}",
   "secondary":  "{core.gray.500}",
