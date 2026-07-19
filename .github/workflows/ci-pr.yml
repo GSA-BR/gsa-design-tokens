@@ -56,5 +56,10 @@ jobs:
             echo "::error::changelog gate accepted 'v2x0x0' for tag v2.0.0 — tag is being treated as a regex."
             exit 1
           fi
+          printf '## v2.0.0-rc.1 — prerelease-only entry\n' > "$TMP"
+          if scripts/check-changelog.sh v2.0.0 "$TMP"; then
+            echo "::error::changelog gate accepted an rc-only entry for the final tag v2.0.0 — hyphen must not be a separator."
+            exit 1
+          fi
           printf '## v2.0.0 — real entry\n' > "$TMP"
           scripts/check-changelog.sh v2.0.0 "$TMP"
