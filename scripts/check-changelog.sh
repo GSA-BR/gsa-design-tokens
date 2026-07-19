@@ -10,10 +10,12 @@ TAG="${1:?usage: check-changelog.sh <tag> [changelog-file]}"
 FILE="${2:-CHANGELOG.md}"
 
 # Accept exactly: "## <tag>" at line start, followed by end-of-line or a
-# separator (space, hyphen, em dash). Comparison is on literal prefixes.
+# separator that cannot be part of a version (space or em dash). A hyphen is
+# NOT a valid separator: it can start a semver prerelease (v1.0.0-rc.1), so
+# accepting "## <tag>-"* would let tag v1.0.0 pass on an rc-only entry.
 while IFS= read -r line; do
   case "$line" in
-    "## ${TAG}" | "## ${TAG} "* | "## ${TAG}-"* | "## ${TAG}—"*)
+    "## ${TAG}" | "## ${TAG} "* | "## ${TAG}—"*)
       echo "CHANGELOG entry found for ${TAG}."
       exit 0
       ;;
