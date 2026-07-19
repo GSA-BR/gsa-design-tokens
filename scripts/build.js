@@ -47,7 +47,12 @@ const JSON_OUT = path.join(BUILD, 'json', 'gsa-tokens.json');
 const DECL_RE = /(--gsa-[a-z0-9-]+)\s*:\s*([^;{}]+);/g;
 // Any place a --gsa-* custom property is DEFINED (name followed by `:`), as
 // opposed to referenced via var(...). Used as the completeness oracle.
-const DEF_RE = /(?:^|[{;\s])(--gsa-[a-z0-9-]+)\s*:/g;
+// Deliberately BROAD on the name (anything CSS would accept up to the colon)
+// so a name outside the naming convention cannot escape detection (review
+// P2 on EX-1): detection is broad, then the convention is enforced.
+const DEF_RE = /(?:^|[{;\s])(--gsa-[^\s:;{}]*)\s*:/g;
+// The canonical naming convention for token names.
+const NAME_RE = /^--gsa-[a-z0-9-]+$/;
 
 function stripComments(css) {
   return css.replace(/\/\*[\s\S]*?\*\//g, '');
@@ -63,7 +68,14 @@ function parseCanonical(css) {
   const text = stripComments(css);
 
   const defined = [];
-  for (const m of text.matchAll(DEF_RE)) defined.push(m[1]);
+  for (const m of text.matchAll(DEF_RE)) {
+    if (!NAME_RE.test(m[1])) {
+      throw new Error(
+        `token name violates the naming convention (--gsa-[a-z0-9-]+): ${m[1]}`
+      );
+    }
+    defined.push(m[1]);
+  }
 
   const tokens = {};
   const order = [];
@@ -134,6 +146,16 @@ function selfTest() {
       name: 'commented-out declarations are ignored',
       css: ':root {\n  /* --gsa-old: #123; */\n  --gsa-a: #fff;\n}\n',
       expect: (r) => r.order.length === 1,
+    },
+    {
+      name: 'name outside convention (underscore) fails instead of vanishing (P2)',
+      css: ':root {\n  --gsa-a: #fff;\n  --gsa-color-primary_500: #000;\n}\n',
+      throws: /naming convention/,
+    },
+    {
+      name: 'name outside convention (uppercase) fails instead of vanishing (P2)',
+      css: ':root {\n  --gsa-a: #fff;\n  --gsa-Color: #000;\n}\n',
+      throws: /naming convention/,
     },
   ];
 
