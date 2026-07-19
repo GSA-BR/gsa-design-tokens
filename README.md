@@ -4,8 +4,37 @@
 
 > **Fonte única, versionada e canônica dos design tokens oficiais do ecossistema GSA.**
 
-[![Version](https://img.shields.io/badge/versão-1.0.0-blue)](#)
+[![Version](https://img.shields.io/badge/versão-2.0.0-blue)](#)
 [![License](https://img.shields.io/badge/licença-interna-gray)](#)
+
+---
+
+## ⚓ Cânone vigente (ADR-0020 — leia antes de tudo)
+
+> **Fonte canônica:** `src/canonical/gsa-tokens.css` — a paleta **em produção**
+> (`gsa-iam` / `gsa-template-admin-blazor`), congelada **bit a bit** pelo ADR-0020 D1
+> (gsa-docs). O build emite **apenas** `build/css/gsa-tokens.css` (cópia byte-idêntica —
+> âncora do diff-check dos consumidores) e `build/json/gsa-tokens.json` (consumo
+> multi-stack). Release = **tag protegida `v*` + entrada no CHANGELOG** (sem npm).
+> CI exige build reprodutível (`git diff --exit-code -- build/`).
+>
+> **Trem dormente:** as seções deste README que descrevem saídas C#/Blazor, SCSS e os
+> 6 temas de domínio referem-se ao modelo de 3 camadas que **permanece vivo em `src/`**
+> como caminho de theming futuro, mas **fora do build** (ADR-0020 D2 / Painel P-4).
+> Ressuscitar = histórico git + painel, quando houver demanda real.
+
+### Legado congelado (anomalias documentadas — ADR-0020 D1)
+
+Estas características da paleta são **anomalias conhecidas, congeladas como parte do
+cânone** — não são bugs a corrigir silenciosamente; mudá-las é mudança visual (painel +
+MAJOR na lib consumidora):
+
+| Anomalia | Detalhe |
+|---|---|
+| `--gsa-color-primary-950` mais **clara** que a 900 | `#0c1929` (950) vs `#0a1628` (900) — a escala não é monotônica no extremo escuro |
+| `--gsa-color-primary-accent` duplica a 500 | ambas `#1d4ed8` — o accent não é um matiz próprio |
+| Salto de matiz na rampa | 900–600 são **navy** dessaturado (`#0a1628…#1e3a5f`); 500–50 saltam para **azul** saturado (`#1d4ed8`, `#2563eb`, …) — duas famílias de matiz numa escala só |
+| `--gsa-sidebar-bg-dark` é claro | `#f8fafc` — o sufixo `-dark` não corresponde a um tema escuro (não há dark theme no cânone) |
 
 ---
 

@@ -17,8 +17,16 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Validate tokens
+      - name: Validate canonical source
         run: node scripts/build.js --validate
 
-      - name: Build all outputs
+      - name: Build canonical outputs
         run: node scripts/build.js
+
+      - name: "Reproducible build: build/ must match the generated output (issue #7)"
+        run: |
+          set -euo pipefail
+          git diff --exit-code -- build/ || {
+            echo "::error::build/ diverges from the generated output — run 'npm run build' and commit; never edit build/ by hand."
+            exit 1
+          }

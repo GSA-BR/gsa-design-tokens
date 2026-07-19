@@ -10,3 +10,6 @@ CODEOWNERS @gsabr-dev
 
 # Protect token sources
 src/ @gsabr-dev
+
+# Protect generated canonical outputs (ADR-0020 D2 — issue #7; build reproducibility enforced in CI)
+build/ @gsabr-dev

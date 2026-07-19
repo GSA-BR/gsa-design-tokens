@@ -1,0 +1,34 @@
+name: Release gate (tags v*)
+
+on:
+  push:
+    tags: ['v*']
+
+jobs:
+  changelog-gate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: "CHANGELOG entry required for this tag (ADR-0020 D2 / Painel R-4)"
+        run: |
+          set -euo pipefail
+          TAG="${GITHUB_REF_NAME}"
+          grep -qE "^## ${TAG}( |$|—|-)" CHANGELOG.md || {
+            echo "::error::no CHANGELOG.md entry found for ${TAG} — the release job fails without one."
+            exit 1
+          }
+          echo "CHANGELOG entry found for ${TAG}."
+
+      - name: "Tag content must be a reproducible build"
+        run: |
+          set -euo pipefail
+          node scripts/build.js
+          git diff --exit-code -- build/
