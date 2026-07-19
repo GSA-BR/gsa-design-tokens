@@ -17,18 +17,20 @@ jobs:
         with:
           node-version: '20'
 
-      - name: "CHANGELOG entry required for this tag (ADR-0020 D2 / Painel R-4)"
+      - name: "CHANGELOG entry required for this tag (ADR-0020 D2 / Painel R-4; literal match — review EX-3)"
         run: |
           set -euo pipefail
-          TAG="${GITHUB_REF_NAME}"
-          grep -qE "^## ${TAG}( |$|—|-)" CHANGELOG.md || {
-            echo "::error::no CHANGELOG.md entry found for ${TAG} — the release job fails without one."
-            exit 1
-          }
-          echo "CHANGELOG entry found for ${TAG}."
+          chmod +x scripts/check-changelog.sh
+          scripts/check-changelog.sh "${GITHUB_REF_NAME}"
 
       - name: "Tag content must be a reproducible build"
         run: |
           set -euo pipefail
           node scripts/build.js
-          git diff --exit-code -- build/
+          # Covers modifications, deletions and untracked extras (review EX-2).
+          STATUS="$(git status --porcelain -- build/)"
+          if [ -n "$STATUS" ]; then
+            echo "$STATUS"
+            echo "::error::tagged build/ is not exactly the generated output."
+            exit 1
+          fi

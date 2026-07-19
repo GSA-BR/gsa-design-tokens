@@ -17,16 +17,44 @@ jobs:
         with:
           node-version: '20'
 
+      - name: "Parser self-test (negative fixtures — review EX-1)"
+        run: node scripts/build.js --self-test
+
       - name: Validate canonical source
         run: node scripts/build.js --validate
 
-      - name: Build canonical outputs
-        run: node scripts/build.js
-
-      - name: "Reproducible build: build/ must match the generated output (issue #7)"
+      - name: "Build wipes foreign artifacts (negative fixture — review EX-2)"
         run: |
           set -euo pipefail
-          git diff --exit-code -- build/ || {
-            echo "::error::build/ diverges from the generated output — run 'npm run build' and commit; never edit build/ by hand."
+          mkdir -p build
+          touch build/extra-artifact.txt
+          node scripts/build.js
+          if [ -e build/extra-artifact.txt ]; then
+            echo "::error::build/ was not recreated from scratch — foreign artifacts survive the build."
             exit 1
-          }
+          fi
+
+      - name: "Reproducible build: build/ must be EXACTLY the generated output (issue #7)"
+        run: |
+          set -euo pipefail
+          # `git status --porcelain` covers modifications, deletions AND
+          # untracked files — `git diff` alone misses the last two (review EX-2).
+          STATUS="$(git status --porcelain -- build/)"
+          if [ -n "$STATUS" ]; then
+            echo "$STATUS"
+            echo "::error::build/ diverges from the generated output — run 'npm run build' and commit; never edit build/ by hand or add extra artifacts."
+            exit 1
+          fi
+
+      - name: "CHANGELOG gate self-test (literal tag match — review EX-3)"
+        run: |
+          set -euo pipefail
+          chmod +x scripts/check-changelog.sh
+          TMP="$(mktemp)"
+          printf '## v2x0x0 — typo entry\n' > "$TMP"
+          if scripts/check-changelog.sh v2.0.0 "$TMP"; then
+            echo "::error::changelog gate accepted 'v2x0x0' for tag v2.0.0 — tag is being treated as a regex."
+            exit 1
+          fi
+          printf '## v2.0.0 — real entry\n' > "$TMP"
+          scripts/check-changelog.sh v2.0.0 "$TMP"

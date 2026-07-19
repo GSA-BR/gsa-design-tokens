@@ -23,9 +23,15 @@ starts the canonical line at `v2.0.0`.
   core/semantic split CSS. The 3-layer model stays alive in `src/` as the
   future theming path (dormant — resurrect via git history + panel when real
   demand exists).
-- **Reproducible build enforced:** CI fails if `build/` diverges from the
-  generated output (`git diff --exit-code`). CODEOWNERS covers `src/` and
-  `build/`.
+- **Reproducible build enforced:** CI fails if `build/` is not exactly the
+  generated output (`git status --porcelain -- build/` — covers modifications,
+  deletions and untracked extras). CODEOWNERS covers `src/` and `build/`.
+- **Fail-closed hardening (Modo 1 review, 2ª família — EX-1..EX-4):** the
+  parser aborts on any unrecognized `--gsa-` declaration (completeness check +
+  `--self-test` negative fixtures); `build/` is recreated from scratch on every
+  run; the CHANGELOG gate matches the tag **literally** (never as a regex);
+  README operational sections rewritten to the pruned reality (dormant-train
+  sections explicitly marked non-executable).
 - **Release discipline:** tags `v*` are immutable (repo ruleset); the release
   job fails without a CHANGELOG entry for the tag version. No npm publishing —
   consumption is by pinned-tag raw fetch (diff-check in `gsa-ui-blazor`) and
