@@ -1,0 +1,153 @@
+/* ============================================================
+   GSA Design Tokens — Official tokens for the GSA ecosystem
+   Source: gsa-design-tokens (sync with the official repository)
+   ============================================================ */
+
+:root {
+  /* --- Base Color Palette --- */
+  --gsa-color-primary-900: #0a1628;
+  --gsa-color-primary-800: #0f1e38;
+  --gsa-color-primary-700: #162848;
+  --gsa-color-primary-600: #1e3a5f;
+  --gsa-color-primary-500: #1d4ed8;
+  --gsa-color-primary-400: #2563eb;
+  --gsa-color-primary-300: #3b82f6;
+  --gsa-color-primary-200: #93c5fd;
+  --gsa-color-primary-100: #dbeafe;
+  --gsa-color-primary-50:  #eff6ff;
+  --gsa-color-primary-accent: #1d4ed8;
+  --gsa-color-primary-950:   #0c1929;
+
+  /* --- Sidebar --- */
+  --gsa-sidebar-bg:          #ffffff;
+  --gsa-sidebar-bg-hover:    #f1f5f9;
+  --gsa-sidebar-bg-active:   var(--gsa-color-primary-50);
+  --gsa-sidebar-text:        #64748b;
+  --gsa-sidebar-text-active: var(--gsa-color-primary-500);
+  --gsa-sidebar-border:      #e2e8f0;
+  --gsa-sidebar-width:       256px;
+  --gsa-sidebar-width-collapsed: 64px;
+  --gsa-sidebar-logo-bg:     #ffffff;
+  --gsa-sidebar-bg-dark:     #f8fafc;
+
+  /* --- Topbar --- */
+  --gsa-topbar-bg:     #ffffff;
+  --gsa-topbar-border: #e2e8f0;
+  --gsa-topbar-height: 56px;
+  --gsa-topbar-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+
+  /* --- Backgrounds --- */
+  --gsa-bg-body:    #f8fafc;
+  --gsa-bg-surface: #ffffff;
+  --gsa-bg-subtle:  #f8fafc;
+  --gsa-bg-muted:   #f1f5f9;
+
+  /* --- Typography --- */
+  --gsa-font-family:   'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --gsa-font-mono:     'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+
+  --gsa-text-xs:   0.75rem;   /* 12px */
+  --gsa-text-sm:   0.875rem;  /* 14px */
+  --gsa-text-base: 1rem;      /* 16px */
+  --gsa-text-lg:   1.125rem;  /* 18px */
+  --gsa-text-xl:   1.25rem;   /* 20px */
+  --gsa-text-2xl:  1.5rem;    /* 24px */
+  --gsa-text-3xl:  1.875rem;  /* 30px */
+
+  --gsa-font-weight-normal:   400;
+  --gsa-font-weight-medium:   500;
+  --gsa-font-weight-semibold: 600;
+  --gsa-font-weight-bold:     700;
+
+  --gsa-line-height-tight:  1.25;
+  --gsa-line-height-normal: 1.5;
+  --gsa-line-height-relaxed: 1.75;
+  --gsa-letter-spacing-wide:  0.05em;
+  --gsa-letter-spacing-wider: 0.08em;
+
+  /* --- Text Colors --- */
+  --gsa-text-primary:   #1e293b;
+  --gsa-text-secondary: #64748b;
+  --gsa-text-muted:     #94a3b8;
+  --gsa-text-disabled:  #cbd5e1;
+  --gsa-text-inverse:   #ffffff;
+  --gsa-text-link:      var(--gsa-color-primary-500);
+
+  /* --- Borders --- */
+  --gsa-border-color:     #e2e8f0;
+  --gsa-border-color-strong: #cbd5e1;
+  --gsa-border-color-focus: var(--gsa-color-primary-400);
+  --gsa-border-radius-sm: 4px;
+  --gsa-border-radius:    6px;
+  --gsa-border-radius-md: 8px;
+  --gsa-border-radius-lg: 12px;
+  --gsa-border-radius-xl: 16px;
+  --gsa-border-radius-full: 9999px;
+
+  /* --- Shadows --- */
+  --gsa-shadow-xs:  0 1px 2px rgba(0, 0, 0, 0.03);
+  --gsa-shadow-sm:  0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 1px rgba(0, 0, 0, 0.02);
+  --gsa-shadow-md:  0 2px 4px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.03);
+  --gsa-shadow-lg:  0 4px 8px rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.03);
+  --gsa-shadow-xl:  0 8px 16px rgba(0, 0, 0, 0.05), 0 4px 6px rgba(0, 0, 0, 0.03);
+  --gsa-shadow-focus: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  --gsa-shadow-card:       0 1px 2px rgba(0, 0, 0, 0.03);
+  --gsa-shadow-card-hover: 0 2px 8px rgba(0, 0, 0, 0.05);
+  --gsa-shadow-login:      0 8px 24px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+
+  /* --- Spacing --- */
+  --gsa-space-0:    0;
+  --gsa-space-1:    0.25rem;  /* 4px */
+  --gsa-space-2:    0.5rem;   /* 8px */
+  --gsa-space-3:    0.75rem;  /* 12px */
+  --gsa-space-4:    1rem;     /* 16px */
+  --gsa-space-5:    1.25rem;  /* 20px */
+  --gsa-space-6:    1.5rem;   /* 24px */
+  --gsa-space-8:    2rem;     /* 32px */
+  --gsa-space-10:   2.5rem;   /* 40px */
+  --gsa-space-12:   3rem;     /* 48px */
+  --gsa-space-16:   4rem;     /* 64px */
+
+  /* --- Layout --- */
+  --gsa-content-max-width: 1280px;
+  --gsa-page-padding:   var(--gsa-space-8);
+  --gsa-page-padding-y: var(--gsa-space-6);
+
+  /* --- Status / Semantic Colors --- */
+  --gsa-color-success-bg:     #f0fdf4;
+  --gsa-color-success-text:   #15803d;
+  --gsa-color-success-border: #bbf7d0;
+  --gsa-color-success-solid:  #16a34a;
+
+  --gsa-color-warning-bg:     #fffbeb;
+  --gsa-color-warning-text:   #b45309;
+  --gsa-color-warning-border: #fde68a;
+  --gsa-color-warning-solid:  #d97706;
+
+  --gsa-color-danger-bg:      #fef2f2;
+  --gsa-color-danger-text:    #b91c1c;
+  --gsa-color-danger-border:  #fecaca;
+  --gsa-color-danger-solid:   #dc2626;
+
+  --gsa-color-info-bg:        #f0f9ff;
+  --gsa-color-info-text:      #0369a1;
+  --gsa-color-info-border:    #bae6fd;
+  --gsa-color-info-solid:     #0891b2;
+
+  --gsa-color-neutral-bg:     #f8fafc;
+  --gsa-color-neutral-text:   #475569;
+  --gsa-color-neutral-border: #e2e8f0;
+  --gsa-color-neutral-solid:  #64748b;
+
+  /* --- Transitions --- */
+  --gsa-transition-fast:   150ms ease;
+  --gsa-transition-normal: 200ms ease;
+  --gsa-transition-slow:   300ms ease;
+
+  /* --- Z-Index --- */
+  --gsa-z-sidebar:  100;
+  --gsa-z-topbar:   200;
+  --gsa-z-modal:    500;
+  --gsa-z-toast:    600;
+  --gsa-z-tooltip:  700;
+}

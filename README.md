@@ -4,8 +4,37 @@
 
 > **Fonte única, versionada e canônica dos design tokens oficiais do ecossistema GSA.**
 
-[![Version](https://img.shields.io/badge/versão-1.0.0-blue)](#)
+[![Version](https://img.shields.io/badge/versão-2.0.0-blue)](#)
 [![License](https://img.shields.io/badge/licença-interna-gray)](#)
+
+---
+
+## ⚓ Cânone vigente (ADR-0020 — leia antes de tudo)
+
+> **Fonte canônica:** `src/canonical/gsa-tokens.css` — a paleta **em produção**
+> (`gsa-iam` / `gsa-template-admin-blazor`), congelada **bit a bit** pelo ADR-0020 D1
+> (gsa-docs). O build emite **apenas** `build/css/gsa-tokens.css` (cópia byte-idêntica —
+> âncora do diff-check dos consumidores) e `build/json/gsa-tokens.json` (consumo
+> multi-stack). Release = **tag protegida `v*` + entrada no CHANGELOG** (sem npm).
+> CI exige build reprodutível (`git diff --exit-code -- build/`).
+>
+> **Trem dormente:** as seções deste README que descrevem saídas C#/Blazor, SCSS e os
+> 6 temas de domínio referem-se ao modelo de 3 camadas que **permanece vivo em `src/`**
+> como caminho de theming futuro, mas **fora do build** (ADR-0020 D2 / Painel P-4).
+> Ressuscitar = histórico git + painel, quando houver demanda real.
+
+### Legado congelado (anomalias documentadas — ADR-0020 D1)
+
+Estas características da paleta são **anomalias conhecidas, congeladas como parte do
+cânone** — não são bugs a corrigir silenciosamente; mudá-las é mudança visual (painel +
+MAJOR na lib consumidora):
+
+| Anomalia | Detalhe |
+|---|---|
+| `--gsa-color-primary-950` mais **clara** que a 900 | `#0c1929` (950) vs `#0a1628` (900) — a escala não é monotônica no extremo escuro |
+| `--gsa-color-primary-accent` duplica a 500 | ambas `#1d4ed8` — o accent não é um matiz próprio |
+| Salto de matiz na rampa | 900–600 são **navy** dessaturado (`#0a1628…#1e3a5f`); 500–50 saltam para **azul** saturado (`#1d4ed8`, `#2563eb`, …) — duas famílias de matiz numa escala só |
+| `--gsa-sidebar-bg-dark` é claro | `#f8fafc` — o sufixo `-dark` não corresponde a um tema escuro (não há dark theme no cânone) |
 
 ---
 
@@ -181,6 +210,8 @@ Cada cor possui escala de **50 a 950** (11 tons), permitindo flexibilidade total
 
 ## Convenção de Nomenclatura
 
+> **Vigente:** os nomes canônicos são **flat** (`--gsa-color-primary-500`, `--gsa-sidebar-bg` — ver `src/canonical/gsa-tokens.css`). Os esquemas abaixo (JSON source, prefixos `core`/`theme`, constantes C#) pertencem à camada dormente.
+
 ### Tokens em JSON (source)
 
 ```
@@ -225,176 +256,84 @@ Exemplos:
 
 ## Como Fazer o Build
 
-**Pré-requisito:** Node.js 18 ou superior.
+**Pré-requisito:** Node.js 18 ou superior. Zero dependências externas.
 
 ```bash
-# Instalar dependências (nenhuma dependência externa necessária)
-npm install
-
-# Validar estrutura de tokens (sem gerar artefatos)
+# Validar a fonte canônica (sem gerar artefatos)
 npm run validate
 
-# Gerar todos os artefatos
+# Gerar os DOIS artefatos vigentes (build/css + build/json)
 npm run build
 
-# Gerar apenas CSS
-npm run build:css
-
-# Gerar apenas JSON
-npm run build:json
-
-# Gerar apenas artefatos Blazor
-npm run build:blazor
+# Rodar as fixtures negativas do parser
+node scripts/build.js --self-test
 ```
 
-Os artefatos são gerados em `build/`. **Não edite arquivos em `build/` diretamente** — eles são regenerados a cada build.
+O build é **fail-closed**:
 
-O build valida automaticamente:
-- Existência dos diretórios obrigatórios (`src/core/`, `src/semantic/`, `src/themes/`)
-- Existência dos arquivos obrigatórios de cada camada
-- Validade do JSON em todos os arquivos-fonte
-- Falha com mensagens claras caso alguma categoria crítica esteja ausente
+- Recria `build/` do zero a cada execução — artefato estranho, rastreado ou não, não sobrevive (o CI prova isso com uma fixture negativa).
+- Toda declaração `--gsa-*` da fonte precisa ser reconhecida pelo parser — declaração malformada **aborta o build** em vez de sumir do JSON em silêncio.
+- Duplicatas e referências `var()` órfãs falham o build.
+- No CI, `git status --porcelain -- build/` precisa ficar vazio (cobre modificações, deleções e untracked).
+
+**Não edite `build/` diretamente** — é regenerado a cada build.
 
 ---
 
 ## Como Consumir em CSS
 
-### Importar tokens
-
-**Opção 1 — Bundle completo (recomendado):**
+O consumo é por **pin de tag imutável** (`DESIGN_SYSTEM_STANDARD.md` v1.1.0 / ADR-0020 D2–D3) — nunca `latest`, nunca branch:
 
 ```html
-<link rel="stylesheet" href="path/to/build/css/tokens.all.css" />
+<!-- Fonte: gsa-design-tokens@v2.0.0 (tag imutável) -->
+<link rel="stylesheet" href="path/to/gsa-tokens.css" />
 ```
 
-**Opção 2 — Importar individualmente:**
+Regras obrigatórias para quem **embute ou copia** o snapshot:
 
-```html
-<link rel="stylesheet" href="path/to/build/css/tokens.core.css" />
-<link rel="stylesheet" href="path/to/build/css/tokens.semantic.css" />
-<link rel="stylesheet" href="path/to/build/css/theme.gsa-light.css" />
-```
-
-### Aplicar tema no HTML
-
-```html
-<html data-theme="gsa-light">
-  <!-- ou -->
-<html data-theme="gsa-dark">
-  <!-- ou tema de domínio -->
-<html data-theme="domain-auth">
-```
+- **Pin exato** da tag (ex.: `v2.0.0`); atualização de versão só por PR explícito.
+- **Diff-check fail-closed no CI** contra `build/css/gsa-tokens.css` da tag pinada (required status check).
+- **Regra de honestidade:** o cabeçalho `Fonte:` só pode citar este repositório se houver tag pinada declarada + diff-check no CI.
 
 ### Usar variáveis no CSS
 
 ```css
 .meu-componente {
-  color: var(--gsa-theme-text-primary);
-  background-color: var(--gsa-theme-surface-card);
-  border: 1px solid var(--gsa-theme-border-default);
-  border-radius: var(--gsa-core-radius-md);
-  padding: var(--gsa-core-spacing-4);
-  font-size: var(--gsa-core-typography-size-base);
-  transition: background-color var(--gsa-core-motion-duration-normal)
-              var(--gsa-core-motion-easing-ease-in-out);
+  background-color: var(--gsa-color-primary-500);
+  color: var(--gsa-sidebar-text);
+  border: 1px solid var(--gsa-sidebar-border);
 }
 ```
 
-### Usar variáveis em SCSS
-
-```scss
-// Arquivo: meu-componente.scss
-.card {
-  background: var(--gsa-theme-surface-card);
-  border: 1px solid var(--gsa-theme-border-default);
-  border-radius: var(--gsa-core-radius-md);
-  padding: var(--gsa-core-spacing-4);
-  box-shadow: var(--gsa-core-shadow-sm);
-
-  &__title {
-    color: var(--gsa-theme-text-primary);
-    font-size: var(--gsa-core-typography-size-lg);
-    font-weight: var(--gsa-core-typography-weight-semibold);
-  }
-
-  &__body {
-    color: var(--gsa-theme-text-secondary);
-    font-size: var(--gsa-core-typography-size-base);
-  }
-}
-```
+Os nomes canônicos são **flat** (`--gsa-color-primary-500`, `--gsa-sidebar-bg`, …) — a lista completa (114 tokens) está em `build/css/gsa-tokens.css` e `build/json/gsa-tokens.json`.
 
 ---
 
 ## Como Consumir em Blazor
 
-### 1. Adicionar os arquivos gerados ao projeto
+Consumo Blazor é via **pacote NuGet interno `Gsa.Ui.Blazor`** (GitHub Packages), que embute o CSS de tokens sincronizado por diff-check (ADR-0020 D3) — módulos Blazor **não** consomem este repositório diretamente.
 
-Copie os arquivos de `build/blazor/` para o projeto `gsa-ui-blazor`:
-- `GsaTokens.cs` — constantes de todos os tokens core
-- `GsaThemes.cs` — enum de temas + extensão `ToDataAttribute()`
-- `_gsa-tokens.scss` — variáveis SCSS para uso em estilos isolados
-
-### 2. Usar constantes de token em componentes
-
-```csharp
-// Referenciando valores de token no C#
-var primaryColor = GsaTokens.Colors.Blue700;   // "#1D4ED8"
-var spacing      = GsaTokens.Spacing.Size4;    // "1rem"
-var radius       = GsaTokens.Radius.Md;        // "0.375rem"
-```
-
-### 3. Aplicar tema dinamicamente
-
-```razor
-@inject IThemeService ThemeService
-
-<html data-theme="@ThemeService.Current.ToDataAttribute()">
-  ...
-</html>
-```
-
-```csharp
-// Trocar tema em runtime
-var tema = GsaTheme.DomainAuth;
-var atributo = tema.ToDataAttribute(); // "domain-auth"
-```
-
-### 4. Usar variáveis SCSS em componentes Blazor
-
-```scss
-@use 'path/to/build/blazor/gsa-tokens' as gsa;
-
-.meu-botao {
-  background-color: $gsa-colors-blue-700;
-  padding: $gsa-spacing-4;
-}
-```
+> 🚂 **Trem dormente (ADR-0020 D2):** os artefatos Blazor (`GsaTokens.cs`, `GsaThemes.cs`, `_gsa-tokens.scss`) **não são mais gerados** — as instruções antigas saíram do caminho executável. O histórico vive no git (`build/blazor/` pré-v2.0.0); reintrodução exige demanda real + Painel.
 
 ---
 
 ## Como Consumir via JSON
 
-**Consumir JSON consolidado (estrutura aninhada):**
+O artefato vigente é `build/json/gsa-tokens.json` — mapa flat determinístico, na ordem da fonte canônica:
 
 ```js
-import tokens from 'path/to/build/json/tokens.json';
+import data from 'path/to/build/json/gsa-tokens.json';
 
-const blueBase = tokens.core.colors.blue[700]; // "#1D4ED8"
-const textPrimary = tokens.themes['gsa-light'].text.primary; // "#0F172A"
+const primary = data.tokens['--gsa-color-primary-500']; // "#1d4ed8"
 ```
 
-**Consumir JSON achatado (chave direta):**
-
-```js
-import flat from 'path/to/build/json/tokens.flat.json';
-
-const blue700 = flat['core.colors.blue-700']; // "#1D4ED8"
-```
+O objeto tem `$meta` (fonte, governança) e `tokens` (nome → valor). Os artefatos antigos `tokens.json`/`tokens.flat.json` **não são mais gerados**.
 
 ---
 
 ## Exemplos Reais de Consumo
+
+> 🚂 **Trem dormente (ADR-0020 D2):** esta seção descreve a camada 3-layer de `src/` (core/semantic/themes), que **não é construída** hoje — nada abaixo é executável. Mantida como caminho nomeado para theming futuro (demanda real + Painel).
 
 ### Botão primário em CSS
 
@@ -499,6 +438,8 @@ const blue700 = flat['core.colors.blue-700']; // "#1D4ED8"
 
 ## Temas Disponíveis
 
+> 🚂 **Trem dormente (ADR-0020 D2):** esta seção descreve a camada 3-layer de `src/` (core/semantic/themes), que **não é construída** hoje — nada abaixo é executável. Mantida como caminho nomeado para theming futuro (demanda real + Painel).
+
 | Tema              | Descrição                                    | Cor primária      | Papel no ecossistema |
 |-------------------|----------------------------------------------|-------------------|----------------------|
 | `gsa-light`       | Tema claro padrão do ecossistema             | Azul corporativo  | Base obrigatória     |
@@ -515,6 +456,8 @@ const blue700 = flat['core.colors.blue-700']; // "#1D4ED8"
 ---
 
 ## Tokens de Ambiente
+
+> 🚂 **Trem dormente (ADR-0020 D2):** esta seção descreve a camada 3-layer de `src/` (core/semantic/themes), que **não é construída** hoje — nada abaixo é executável. Mantida como caminho nomeado para theming futuro (demanda real + Painel).
 
 Os tokens de ambiente permitem que a interface comunique claramente em qual contexto o sistema está rodando:
 
@@ -541,35 +484,20 @@ Os tokens de ambiente permitem que a interface comunique claramente em qual cont
 
 ## Política de Versionamento
 
-Este repositório segue **Semantic Versioning (semver)** rigorosamente:
+O regime vigente é o do `DESIGN_SYSTEM_STANDARD.md` v1.1.0 (ADR-0020 D2/D3) — **release por tag imutável, sem publicação em registry**:
 
-| Tipo de mudança | Versão | Exemplo | Impacto |
-|---|---|---|---|
-| **MAJOR** (`x.0.0`) | Mudança incompatível | Renomear `text.primary` → `text.main` | Quebra consumidores |
-| **MINOR** (`1.x.0`) | Adição compatível | Novo token `text.caption` | Nenhuma quebra |
-| **PATCH** (`1.0.x`) | Correção de valor | Ajustar `#1D4ED8` → `#1E4FD9` | Nenhuma quebra |
+- Toda alteração de token termina em **tag `v*` imutável** (ruleset de proteção de tags) com **entrada obrigatória no CHANGELOG** — o release gate falha sem ela.
+- **Mudança visual de token ⇒ MAJOR na lib consumidora (`Gsa.Ui.Blazor`)**, com nota de migração.
+- Consumidores **pinam a tag exata** — pin flutuante (`~1.x`, `latest`, branch) é **PROIBIDO**.
+- A numeração das tags segue leitura semver (breaking ⇒ major), mas o contrato de consumo é a **tag**, não um pacote publicado.
 
-### Regras de compatibilidade
-
-- **Nunca remova** um token existente sem incrementar MAJOR.
-- **Nunca renomeie** um token sem incrementar MAJOR.
-- **Adição** de tokens novos é sempre MINOR.
-- **Alteração de valor** sem mudança de nome ou remoção é PATCH.
-- Adição de novo tema de domínio é MINOR.
-
-### Como consumidores devem tratar upgrades
-
-| Tipo | `gsa-ui-blazor` deve | Ação necessária |
-|---|---|---|
-| PATCH | Atualizar livremente | Nenhuma |
-| MINOR | Atualizar livremente | Nenhuma (tokens novos são opcionais) |
-| MAJOR | Atualizar com cautela | Revisar changelog, adaptar referências removidas/renomeadas |
-
-> **Recomendação:** `gsa-ui-blazor` deve fixar a dependência em `~1.x` (aceitar MINOR/PATCH, travar MAJOR).
+> Histórico: a política anterior ("semver de pacote", upgrade livre de MINOR/PATCH, recomendação de pin `~1.x`) foi **revogada** pelo ADR-0020 / RFC-2026-006.
 
 ---
 
 ## Política de Evolução de Tokens
+
+> 🚂 **Trem dormente (ADR-0020 D2):** esta seção descreve a camada 3-layer de `src/` (core/semantic/themes), que **não é construída** hoje — nada abaixo é executável. Mantida como caminho nomeado para theming futuro (demanda real + Painel).
 
 ### Adicionar um novo token core
 
@@ -649,9 +577,9 @@ As seguintes categorias semânticas poderão ser adicionadas em versões futuras
 
 ## Decisões de Arquitetura
 
-### Por que JSON como formato fonte?
+### Qual é o formato fonte?
 
-JSON é legível, sem dependências, suportado nativamente em Node.js e editável por qualquer ferramenta. Não requer compilação para inspecionar os valores.
+**Vigente (ADR-0020 D1):** a fonte canônica é o **CSS de produção** (`src/canonical/gsa-tokens.css`), congelado bit a bit; o JSON é **artefato derivado**. A camada 3-layer em JSON (`src/core|semantic|themes`) permanece como fonte do trem dormente de theming.
 
 ### Por que o build script é simples e sem dependências externas?
 

@@ -1,15 +1,12 @@
 {
   "name": "@gsa-br/design-tokens",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Official GSA ecosystem design tokens — single, versioned, canonical source of visual tokens.",
   "license": "UNLICENSED",
   "private": true,
-  "main": "build/json/tokens.json",
+  "main": "build/json/gsa-tokens.json",
   "scripts": {
     "build": "node scripts/build.js",
-    "build:css": "node scripts/build.js --only css",
-    "build:json": "node scripts/build.js --only json",
-    "build:blazor": "node scripts/build.js --only blazor",
     "validate": "node scripts/build.js --validate"
   },
   "keywords": [
